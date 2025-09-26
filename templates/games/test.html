@@ -282,6 +282,40 @@ function showToast(msg){
     setTimeout(()=>toast.classList.remove('show'),1200);
 }
 
+// Submit score -> POST /api/score and redirect to leaderboard
+document.getElementById('btnSubmitScore').addEventListener('click', async ()=>{
+  const username = (JSON.parse(sessionStorage.getItem('hackademic_user')||'null')||{}).username || 'anonymous';
+  const week = new Date().toISOString().slice(0,10);
+  const accuracyStr = attempts?Math.round((correct/attempts)*100)+'%':'0%';
+  const payload = { username, points: score, accuracy: accuracyStr, week };
+  try{
+    const res = await fetch('/api/score', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await res.json().catch(()=>({}));
+    if(res.ok){
+      // if the server says congrats (accuracy >= 90%), show a popup then redirect
+      if(data && data.congrats){
+        // show a celebratory overlay
+        const fb = document.getElementById('feedbackCard');
+        const title = document.getElementById('feedbackTitle');
+        const sub = document.getElementById('feedbackSub');
+        fb.style.display = 'block';
+        fb.style.background = 'linear-gradient(90deg,#ffd166,#ff7a18)';
+        title.textContent = 'CONGRATULATIONS!';
+        title.style.color = '#001';
+        title.style.fontSize = '40px';
+        sub.textContent = 'Excellent work — accuracy ≥ 90%';
+        // wait 2s then redirect
+        setTimeout(()=> window.location.href = '/leaderboard.html', 2000);
+      } else {
+        window.location.href = '/leaderboard.html';
+      }
+    } else {
+      alert(data.message || 'Failed to submit score');
+    }
+  }catch(e){ alert('Submit error'); }
+});
+
+
 function showFeedback(correctFlag, correctLabelText){
     const card = document.getElementById('feedbackCard');
     const title = document.getElementById('feedbackTitle');

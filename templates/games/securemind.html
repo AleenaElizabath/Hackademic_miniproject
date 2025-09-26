@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureMind Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0d1b2a, #1b263b);
+      color: #e0e1dd;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .quiz-card {
+      background: linear-gradient(145deg, #1b263b, #0d1b2a);
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%;
+      max-width: 650px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      text-align: center;
+      color: #fff;
+    }
+    .option-btn {
+      background: #415a77;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      margin: 10px 0;
+      width: 100%;
+      transition: all 0.2s ease-in-out;
+      font-weight: 600;
+    }
+    .option-btn:hover {
+      background: #778da9;
+      transform: scale(1.02);
+    }
+    #score {
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #ffd60a;
+    }
+    .leader-btn {
+      margin-top: 20px;
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .leader-btn:hover {
+      background: #c9184a;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-card">
+    <h1>🧠 SecureMind Quiz</h1>
+    <h5 id="category"></h5>
+    <p id="question"></p>
+    <div id="options"></div>
+    <div id="score">Score: 0</div>
+    <button class="leader-btn" onclick="goLeaderboard()">🏆 Leaderboard</button>
+  </div>
+
+  <script>
+    let score = 0;
+    let currentQuestionId = null;
+    const username = localStorage.getItem("username") || "guest";
+
+    // Client-side quiz flow: fetch all questions, shuffle, and serve randomly
+    let questions = [];
+    let qIndex = 0;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    async function loadQuestions(limit = 50) {
+      try {
+        const res = await fetch(`/api/quiz/questions?limit=${limit}`);
+        const data = await res.json();
+        questions = data.questions || [];
+        shuffle(questions);
+        qIndex = 0;
+        showNextQuestion();
+      } catch (err) {
+        console.error('Failed to load questions', err);
+        document.getElementById('question').innerText = 'Failed to load questions.';
+      }
+    }
+
+    function showNextQuestion() {
+      if (!questions.length) {
+        document.getElementById('question').innerText = 'No questions available.';
+        return;
+      }
+      // wrap-around if we reach the end
+      if (qIndex >= questions.length) qIndex = 0;
+      const q = questions[qIndex++];
+      currentQuestionId = q.qid || qIndex; // qid may not exist in CSV; fallback to index
+      document.getElementById('category').innerText = q.category ? ('Category: ' + q.category) : '';
+      document.getElementById('question').innerText = q.question;
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.innerText = opt;
+        btn.className = 'option-btn';
+        btn.onclick = () => evaluateLocalAnswer(idx + 1, q);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function evaluateLocalAnswer(choice, q) {
+      // q.answer may be a string like '2' or the actual option text; normalize
+      let correct = false;
+      if (!q.answer) {
+        correct = false;
+      } else {
+        const ans = String(q.answer).trim();
+        if (/^\d+$/.test(ans)) {
+          correct = (parseInt(ans, 10) === choice);
+        } else {
+          // compare option text
+          correct = (q.options[choice - 1] && q.options[choice - 1].trim() === ans);
+        }
+      }
+      const pts = correct ? 5 : -2;
+      score += pts;
+      document.getElementById('score').innerText = 'Score: ' + score;
+      // show next random question
+      showNextQuestion();
+    }
+
+    function goLeaderboard() {
+      window.location.href = "leaderboard.html";
+    }
+
+  // load 50 random questions by default; adjust limit as needed
+  loadQuestions(50);
+  </script>
+</body>
+</html>

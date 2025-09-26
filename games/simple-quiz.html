@@ -547,10 +547,16 @@
     const res = await fetch('/api/quiz/questions?limit=20');
     if(!res.ok) throw new Error('Failed to load');
     const data = await res.json();
-    // Expecting {question, options, answer, category}
-    questions = data.map(q => ({
-      question: q.question,
-      options: q.options,
+    // API may return { questions: [...] } or an array directly. Normalize both.
+    let items = [];
+    if (Array.isArray(data)) items = data;
+    else if (data && Array.isArray(data.questions)) items = data.questions;
+    else items = [];
+
+    // Normalize each question to expected shape
+    questions = items.map(q => ({
+      question: (q.question || q.q || '').toString(),
+      options: Array.isArray(q.options) ? q.options : [q.option1, q.option2, q.option3, q.option4].filter(Boolean),
       answer: q.answer,
       category: q.category
     }));

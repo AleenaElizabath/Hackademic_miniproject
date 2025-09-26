@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory, abort, render_template
 from flask_cors import CORS
-from pymongo import MongoClient
+from pymongo import MongoClient, ReturnDocument
 from pymongo.errors import DuplicateKeyError
 import os
 import numpy as np
@@ -8,7 +8,6 @@ import json
 import threading
 from stable_baselines3 import DQN
 from phishing_env import PhishingInboxEnv
-from pymongo import MongoClient
 MODEL_PATH = "dqn_phishing_agent.zip"
 model = DQN.load(MODEL_PATH)
 print("DQN model loaded successfully!")
@@ -33,12 +32,21 @@ db = client["hackademic_db"]
 users_collection = db["users"]
 scores_collection = db["scores"]
 
+# Global per-user totals collection (single document per user with an accumulating score)
+global_scores_collection = db['user_totals']
+
 
 # Ensure we don't create duplicate score documents for the same user/week
 try:
     scores_collection.create_index([('username', 1), ('week', 1)], unique=True)
 except Exception:
     # non-fatal if the DB doesn't allow index creation in this environment
+    pass
+
+try:
+    global_scores_collection.create_index([('username', 1)], unique=True)
+except Exception:
+    # non-fatal
     pass
 
 
@@ -425,44 +433,51 @@ def submit_score():
         y, wk, _ = d.isocalendar()
         week_iso = f"{y}-W{wk:02d}"
 
-    # Upsert behavior: keep the best score per (username, week)
+    # Upsert behavior: overwrite the score for (username, week) with the new submission
     now = __import__('datetime').datetime.utcnow()
     filter_doc = {'username': username, 'week': week_iso}
-    # Try to atomically insert-or-update: if a document exists, update only when new points are higher
     try:
-        # Use a find_one to check existing value (this is safe given the unique index)
-        existing = scores_collection.find_one(filter_doc)
-        if not existing:
-            doc = {
-                'username': username,
-                'points': pts,
-                'accuracy': f"{acc_val}%" if acc_val is not None else (accuracy or ''),
-                'week': week_iso,
-                'ts': now
-            }
-            try:
-                scores_collection.insert_one(doc)
-                return jsonify({'message': 'Score submitted', 'congrats': congrats, 'updated': True, 'week': week_iso}), 201
-            except DuplicateKeyError:
-                # race: another process inserted; fall through to update logic
-                existing = scores_collection.find_one(filter_doc)
+        # Always update the user's global total points (single document per user).
+        try:
+            totals_doc = global_scores_collection.find_one_and_update(
+                {'username': username},
+                {'$inc': {'total_points': pts}, '$set': {'ts': now}},
+                upsert=True,
+                return_document=ReturnDocument.AFTER
+            )
+            global_total = int(totals_doc.get('total_points', 0)) if totals_doc else 0
+        except Exception:
+            # non-fatal; if totals update fails we'll still attempt to save the weekly score
+            global_total = None
 
-        # If we have an existing record, update only if pts is higher
-        if existing:
-            try:
-                prev = int(existing.get('points', 0))
-            except Exception:
-                prev = 0
-            if pts > prev:
-                update_fields = {
-                    'points': pts,
-                    'accuracy': f"{acc_val}%" if acc_val is not None else (accuracy or ''),
-                    'ts': now
-                }
-                scores_collection.update_one(filter_doc, {'$set': update_fields}, upsert=False)
-                return jsonify({'message': 'Score updated', 'congrats': congrats, 'updated': True, 'week': week_iso}), 200
-            else:
-                return jsonify({'message': 'Existing score is higher or equal; not updated', 'congrats': congrats, 'updated': False, 'week': week_iso}), 200
+        # Increment (existing score + new points) the weekly score document atomically.
+        update_ops = {
+            '$inc': {'points': pts},
+            '$set': {'accuracy': f"{acc_val}%" if acc_val is not None else (accuracy or ''), 'ts': now},
+            '$setOnInsert': {'username': username, 'week': week_iso}
+        }
+
+        # Use find_one_and_update to return the updated document after increment.
+        try:
+            updated_week_doc = scores_collection.find_one_and_update(
+                filter_doc,
+                update_ops,
+                upsert=True,
+                return_document=ReturnDocument.AFTER
+            )
+        except Exception:
+            # fallback to a safer update if find_one_and_update fails for any reason
+            scores_collection.update_one(filter_doc, update_ops, upsert=True)
+            updated_week_doc = scores_collection.find_one(filter_doc)
+
+        weekly_total = int(updated_week_doc.get('points', 0)) if updated_week_doc else None
+
+        resp = {'message': 'Score saved', 'congrats': congrats, 'updated': True, 'week': week_iso}
+        if weekly_total is not None:
+            resp['weekly_total'] = weekly_total
+        if global_total is not None:
+            resp['global_total'] = global_total
+        return jsonify(resp), 200
     except Exception as e:
         # If DB is unavailable or other unexpected error, return a 500
         return jsonify({'message': 'Database error: ' + str(e)}), 500
