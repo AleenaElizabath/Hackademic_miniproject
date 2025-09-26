@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SecureMind — Enhanced Quiz Game</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url("/img/bg7.jpg");
+      background-size: 400% 400%;
+      color: #fbf9f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }w
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .floating-shapes {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .shape {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .shape:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      left: 10%;
+      animation-delay: 0s;
+      border-radius: 50%;
+    }
+
+    .shape:nth-child(2) {
+      width: 60px;
+      height: 60px;
+      right: 15%;
+      animation-delay: 2s;
+      transform: rotate(45deg);
+    }
+
+    .shape:nth-child(3) {
+      width: 100px;
+      height: 100px;
+      left: 70%;
+      bottom: 0;
+      animation-delay: 4s;
+      border-radius: 50%;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+      33% { transform: translateY(-100px) rotate(120deg); opacity: 0.8; }
+      66% { transform: translateY(100px) rotate(240deg); opacity: 0.3; }
+    }
+
+    .card {
+      max-width: 900px;
+      width: 100%;
+      background: linear-gradient(135deg, #667eea, #764ba2, #02c8f5);
+      color: #333;
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 40px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color:#030237;
+      font-size: 2.5em;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.2); }
+    }
+
+    .meta {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 1.1em;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .stat-label {
+      font-size: 0.9em;
+      opacity: 0.9;
+      margin-bottom: 5px;
+    }
+
+    .stat-value {
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+
+    .timer-container {
+      margin-bottom: 25px;
+    }
+
+    .timer-wrapper {
+      background: #f0f0f0;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .timer-display {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .timer-value {
+      font-size: 3em;
+      font-weight: bold;
+      background: linear-gradient(135deg, #ff6b6b, #ff8787);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 1s ease-in-out infinite;
+    }
+
+    .timer-value.warning {
+      animation: pulse 0.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .timer-bar {
+      width: 100%;
+      height: 12px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .timer-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      border-radius: 10px;
+      transition: width 1s linear;
+      box-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+    }
+
+    .timer-progress.warning {
+      background: linear-gradient(90deg, #ff6b6b, #ff8787);
+      animation: flash 0.5s ease-in-out infinite;
+    }
+
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .progress-section {
+      margin-bottom: 25px;
+    }
+
+    .progress-bar-container {
+      background: #e0e0e0;
+      border-radius: 10px;
+      height: 30px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #f093fb, #f5576c);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 20px rgba(240, 147, 251, 0.5);
+    }
+
+    .accuracy-bar-container {
+      background: #e0e0e0;
+      border-radius: 10px;
+      height: 30px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .accuracy-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+    }
+
+    #quizArea {
+      min-height: 250px;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      font-size: 1.4rem;
+      color: #333;
+      margin-bottom: 25px;
+      padding: 20px;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .opt {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .opt::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.5s ease;
+    }
+
+    .opt:hover::before {
+      left: 100%;
+    }
+
+    .opt:hover {
+      transform: translateX(10px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .opt.selected {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(240, 147, 251, 0.5);
+    }
+
+    .opt.correct {
+      background: linear-gradient(135deg, #56ab2f, #a8e063);
+      animation: correctPulse 0.5s ease;
+    }
+
+    .opt.incorrect {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes correctPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #ff7a18, #ff4e50);
+      border: none;
+      color: white;
+      padding: 15px 40px;
+      border-radius: 25px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 122, 24, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 122, 24, 0.4);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    #loader {
+      text-align: center;
+      font-size: 1.3em;
+      color: #667eea;
+      padding: 50px;
+    }
+
+    .final-screen {
+      text-align: center;
+      padding: 30px;
+      animation: zoomIn 0.5s ease;
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .final-screen h2 {
+      font-size: 2.5em;
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .final-stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    .final-stat {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .final-stat-label {
+      font-size: 0.9em;
+      opacity: 0.9;
+      margin-bottom: 5px;
+    }
+
+    .final-stat-value {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .btnSubmit {
+      background: linear-gradient(90deg, #56ab2f, #a8e063);
+      border: none;
+      color: white;
+      padding: 18px 50px;
+      border-radius: 25px;
+      font-size: 1.2em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(86, 171, 47, 0.3);
+      margin-top: 20px;
+    }
+
+    .btnSubmit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(86, 171, 47, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-shapes">
+    <svg width="320" height="320" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#00d1ff"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs><circle cx="50" cy="50" r="60" fill="url(#g)"/></svg>
+  </div>
+
+  <div class="card">
+    <h1>🎯 SecureMind Quiz</h1>
+    <p class="meta">Quick brain-teasers for cyber-awareness</p>
+
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-label">Score</div>
+        <div class="stat-value" id="scoreDisplay">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Questions</div>
+        <div class="stat-value" id="questionCount">0/0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Accuracy</div>
+        <div class="stat-value" id="accuracyDisplay">0%</div>
+      </div>
+    </div>
+
+    <div class="timer-container">
+      <div class="timer-wrapper">
+        <div class="timer-display">
+          <div class="timer-value" id="timerText">30</div>
+        </div>
+        <div class="timer-bar">
+          <div class="timer-progress" id="timerBar" style="width:100%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div style="margin-bottom:10px;color:var(--muted);font-weight:700">Progress</div>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar" style="width:0%">0%</div>
+      </div>
+      <div style="margin-top:15px;margin-bottom:10px;color:var(--muted);font-weight:700">Accuracy Rate</div>
+      <div class="accuracy-bar-container">
+        <div class="accuracy-bar" id="accuracyBar" style="width:0%">0%</div>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="loader" style="text-align:center;color:var(--muted);padding:18px">🚀 Loading questions...</div>
+    </div>
+
+    <div class="footer">
+      <div>
+        <small id="progress" style="color:var(--muted);font-size:1.05em;font-weight:700">0 / 0</small>
+      </div>
+      <div>
+        <button id="btnNext" class="btn-primary">Next Question →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let questions = [];
+    let idx = 0;
+    let score = 0;
+    let correctCount = 0;
+    let timer;
+    let timeLeft = 30;
+    let answered = false;
+
+    function parseUser(){
+      try{const raw = sessionStorage.getItem('hackademic_user'); if(!raw) return null; return JSON.parse(raw).username || raw;}catch(e){return sessionStorage.getItem('hackademic_user');}
+    }
+
+    function getIsoWeek(date){
+      const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = tmp.getUTCDay() || 7;
+      tmp.setUTCDate(tmp.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(),0,1));
+      const weekNo = Math.ceil((((tmp - yearStart) / 86400000) + 1)/7);
+      return `${tmp.getUTCFullYear()}-W${String(weekNo).padStart(2,'0')}`;
+    }
+
+    async function loadQuestions(){
+  try{
+    const res = await fetch('/api/quiz/questions?limit=20');
+    if(!res.ok) throw new Error('Failed to load');
+    const data = await res.json();
+    // Expecting {question, options, answer, category}
+    questions = data.map(q => ({
+      question: q.question,
+      options: q.options,
+      answer: q.answer,
+      category: q.category
+    }));
+  }catch(err){
+    console.error(err);
+    // fallback local set
+    questions = [
+      {question:'What is phishing?', options:['A fishing technique','A cyber scam to steal info','A firewall','A backup method'], answer:'A cyber scam to steal info', category:'Cybersecurity'},
+      {question:'Which protocol is secure for browsing?', options:['HTTP','FTP','HTTPS','SMTP'], answer:'HTTPS', category:'Networking'}
+    ];
+  }
+  idx = 0; score = 0; correctCount = 0;
+  renderQuestion(); updateStats();
+}
+
+    function startTimer(){
+      timeLeft = 30; answered = false; updateTimerDisplay();
+      timer = setInterval(()=>{ timeLeft--; updateTimerDisplay(); if(timeLeft<=0){ clearInterval(timer); handleTimeout(); } }, 1000);
+    }
+    function updateTimerDisplay(){ const timerText = document.getElementById('timerText'); const timerBar = document.getElementById('timerBar'); const percentage = (timeLeft/30)*100; timerText.textContent = timeLeft; timerBar.style.width = percentage+'%'; if(timeLeft<=10){ timerBar.classList.add('warning'); } else { timerBar.classList.remove('warning'); } }
+
+    function handleTimeout(){ if(!answered){ score -= 2; answered = true; document.querySelectorAll('.opt').forEach(el=>{ el.style.pointerEvents='none'; if(el.textContent === questions[idx].answer) el.classList.add('correct'); }); updateStats(); setTimeout(()=>nextQuestion(),1500); } }
+
+    function updateStats(){ const totalAnswered = idx + (answered?1:0); const accuracy = totalAnswered>0?Math.round((correctCount/totalAnswered)*100):0; const progress = questions.length>0?Math.round((totalAnswered/questions.length)*100):0; document.getElementById('scoreDisplay').textContent = score; document.getElementById('questionCount').textContent = `${totalAnswered}/${questions.length}`; document.getElementById('accuracyDisplay').textContent = accuracy + '%'; document.getElementById('progressBar').style.width = progress + '%'; document.getElementById('progressBar').textContent = progress + '%'; document.getElementById('accuracyBar').style.width = accuracy + '%'; document.getElementById('accuracyBar').textContent = accuracy + '%'; }
+
+    function renderQuestion(){ const q = questions[idx]; const area = document.getElementById('quizArea'); area.innerHTML = `<div class="question">Question ${idx+1}: ${q.question}</div><div class="options" id="options">${q.options.map((o,i)=>`<div class="opt" data-i="${i}">${o}</div>`).join('')}</div>`; document.getElementById('progress').textContent = `${idx+1} / ${questions.length}`; document.querySelectorAll('.opt').forEach(el=>el.addEventListener('click', ()=>{ if(answered) return; document.querySelectorAll('.opt').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); })); startTimer(); }
+
+    function nextQuestion(){ idx++; if(idx < questions.length){ renderQuestion(); updateStats(); document.getElementById('btnNext').textContent = 'Next Question →'; } else { finishQuiz(); } }
+
+    document.getElementById('btnNext').addEventListener('click', async ()=>{
+      if(answered){ nextQuestion(); return; }
+      const sel = document.querySelector('.opt.selected'); if(!sel){ alert('Please select an option!'); return; }
+      clearInterval(timer); answered = true; const chosen = sel.dataset.i; const q = questions[idx]; if(q.options[chosen] === q.answer){ score += 5; correctCount++; sel.classList.add('correct'); } else { score -= 2; sel.classList.add('incorrect'); document.querySelectorAll('.opt').forEach(el=>{ if(el.textContent === q.answer) el.classList.add('correct'); }); }
+      document.querySelectorAll('.opt').forEach(el=>{ el.style.pointerEvents = 'none'; }); updateStats(); document.getElementById('btnNext').textContent = idx < questions.length-1 ? 'Next Question →' : 'Finish Quiz';
+    });
+
+    async function finishQuiz(){ clearInterval(timer); const accuracy = questions.length>0?Math.round((correctCount/questions.length)*100):0; document.getElementById('quizArea').innerHTML = `
+      <div class="final-screen">
+        <h2>🎉 Quiz Complete!</h2>
+        <div class="final-stats">
+          <div class="final-stat"><div class="final-stat-label">Final Score</div><div class="final-stat-value">${score}</div></div>
+          <div class="final-stat"><div class="final-stat-label">Accuracy</div><div class="final-stat-value">${accuracy}%</div></div>
+          <div class="final-stat"><div class="final-stat-label">Correct</div><div class="final-stat-value">${correctCount}/${questions.length}</div></div>
+        </div>
+        <div>
+          <button class="btnSubmit" id="btnSubmit">Submit Score to Leaderboard</button>
+          <button class=btnSubmit id="btnBackGames">Back to Games</button>
+        </div>
+      </div>
+    `;
+
+      document.getElementById('btnBackGames').addEventListener('click', ()=>{ window.location.href = '/games.html'; });
+
+      document.getElementById('btnSubmit').addEventListener('click', async ()=>{
+        const username = parseUser() || 'anonymous';
+        const payload = {
+          username: username,
+          school: '',
+          points: score,
+          accuracy: accuracy + '%',
+          week: new Date().toISOString().slice(0,10)
+        };
+
+        try{
+          const res = await fetch('/api/score', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+          if(!res.ok) throw new Error('submit failed');
+          const data = await res.json();
+          // compute iso-week to pass to leaderboard
+          const isoWeek = getIsoWeek(new Date());
+          // redirect to leaderboard with week param so the updated score is shown
+          window.location.href = `/leaderboard.html?week=${encodeURIComponent(isoWeek)}`;
+        }catch(err){
+          console.error(err);
+          alert('Failed to submit score. Please try again.');
+        }
+      });
+    }
+
+    // initialize
+    loadQuestions();
+  </script>
+</body>
+</html>

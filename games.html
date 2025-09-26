@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hackademic Games</title>
+  <link href="img/favicon.ico" rel="shortcut icon"/>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Hero */
+    .games-hero { padding: 48px 0; text-align: center; }
+
+    /* Grid */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    /* Card base: use pseudo-element for translucent background so text remains fully opaque */
+    .game-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      padding: 28px;
+      opacity:90%;
+      color: #e6eef6;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+
+    /* translucent overlay (background) - default soft gradient; inline gradients will show through behind this layer */
+    .game-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(180deg, rgba(11,34,48,0.85), rgba(7,16,24,0.7));
+      mix-blend-mode: normal;
+      transition: transform 0.45s ease, opacity 0.35s ease;
+    }
+
+    /* keep textual content above the overlay */
+    .game-card > * { position: relative; z-index: 1; }
+
+    .game-card h2 { margin: 0 0 6px; font-size: 24px; color: #ffd166; }
+    .game-card h4 { margin: 0 0 10px; color: #9fb6c6; font-weight:600 }
+    .game-card p { color: #c6d9e3; margin: 0; }
+
+    .game-actions { margin-top: 18px; display:flex; gap:12px; }
+
+    /* Vibrant buttons */
+    .btn-play {
+      background: linear-gradient(90deg,#ff7a18,#ff4e50);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      box-shadow: 0 6px 14px rgba(255,78,80,0.18);
+      text-decoration: none;
+      font-weight:700;
+      transition: transform .15s ease, box-shadow .15s ease;
+      display:inline-block;
+    }
+    .btn-play:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255,78,80,0.22); }
+
+    .btn-info {
+      background: rgba(255,255,255,0.06);
+      color: #e6eef6;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background .15s ease, transform .12s ease;
+    }
+    .btn-info:hover { background: rgba(255,255,255,0.09); transform: translateY(-2px); }
+
+    /* hover effect: slightly shift overlay for parallax feel */
+    .game-card:hover::before { transform: scale(1.03) translateY(-6px); opacity: 0.95 }
+
+    @media (max-width: 600px){
+      .game-grid { grid-template-columns: 1fr; padding:16px; gap:18px }
+      .game-card{ padding:20px }
+      .btn-play, .btn-info { padding:8px 12px }
+    }
+  </style>
+</head>
+<body>
+  <header class="games-hero" style="background:#0f1720;color:#e6eef6;padding:48px 0 24px;">
+    <img src="img/FullLogo_Transparent.png" alt="Hackademic logo" style="height:100px;filter:brightness(0) invert(1);">
+    <h1 style="margin-top:12px;color:#fff;font-family: Georgia, 'Times New Roman', Times, serif;">Hackademic —Where Learning gets Gamified</h1>
+    <p style="color:#cbd5e1;max-width:800px;margin:6px auto;">Specially tailored concepts tailored for school kids. Progressively learn concepts while having fun.</p>
+  </header>
+
+  <main style="background:url(img/bg8.jpg);min-height:60vh;padding:36px 0;">
+    <section class="game-grid" aria-label="Difficulty levels">
+
+      <article class="game-card" style="background:linear-gradient(180deg,#0b2230,#071018); color:#e6eef6; padding:36px; border:1px solid rgba(255,255,255,0.04); min-height:180px;">
+        <div>
+          <h2 style="font-size:26px;margin:0 0 8px;color: #ffd166;">KeyCraft</h2>
+          <h4 style="margin:0 0 8px;color:#7b8a92">Easy</h4>
+          <p style="color:white;">Learn to craft strong passwords using rules and feedback. Interactive, guided exercises for beginners.</p>
+        </div>
+        <div class="game-actions" style="justify-content:flex-start; margin-top:18px">
+          <a class="btn-play" href="games/password-creation.html?level=easy">Play</a>
+          <a class="btn-info" href="games/password-creation-instructions.html">Instructions</a>
+        </div>
+      </article>
+
+      <article class="game-card" style="background:linear-gradient(180deg,#122f3f,#071018); color:#e6eef6; padding:36px; border:1px solid rgba(255,255,255,0.05); min-height:180px;">
+        <div>
+          <h2 style="font-size:26px;margin:0 0 8px;color:#ffd166">SecureMind</h2>
+          <h4 style="margin:0 0 8px;color:#7b8a92">Medium</h4>
+          <p style="color:white;;">Timed multiple-choice quizzes on digital safety and basic coding concepts. Good practice and rewards.</p>
+        </div>
+        <div class="game-actions" style="justify-content:flex-start; margin-top:18px">
+          <a class="btn-play" href="games/simple-quiz.html?level=medium">Play</a>
+          <a class="btn-info" href="games/simple-quiz-instructions.html">Instructions</a>
+        </div>
+      </article>
+
+      <article class="game-card" style="background:linear-gradient(180deg,#173c52,#071018); color:#e6eef6; padding:36px; border:1px solid rgba(255,255,255,0.06); min-height:180px;">
+        <div>
+          <h2 style="font-size:26px;margin:0 0 8px;color:#ffd166">Spam-Slam</h2>
+          <h4 style="margin:0 0 8px;color:#7b8a92">Hard</h4>
+          <p style="color:white;;">Classify emails as phishing or legitimate. Uses an intelligent model to simulate realistic inboxes.</p>
+        </div>
+        <div class="game-actions" style="justify-content:flex-start; margin-top:18px">
+          <a class="btn-play" href="/phishing-detection">Play</a>
+          <a class="btn-info" href="games/phishing-detection-instructions.html">Instructions</a>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer style="text-align:center;padding:24px 0;color:#7b8a92;background:#041018;">
+    <small>© Hackademic — Building safe digital skills for school kids</small>
+  </footer>
+  <script>
+    // defense-in-depth: ensure only logged-in users can access games page
+    (function(){
+      try {
+        const raw = sessionStorage.getItem('hackademic_user');
+        if (!raw) {
+          // not logged in -> redirect to login/register
+          window.location.href = 'login2.html';
+        }
+      } catch (e) {
+        // if sessionStorage is blocked for some reason, redirect as a fallback
+        window.location.href = 'login2.html';
+      }
+    })();
+  </script>
+</body>
+</html>

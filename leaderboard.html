@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hackademic Leaderboard</title>
+  <link href="img/favicon.ico" rel="shortcut icon"/>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <style>
+    body {
+      background: #0a0f1c;
+      background-image: url('img/bg8.jpg');
+      color: #e6eef6;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding-bottom: 80px; /* leave space for fixed footer */
+    }
+
+    .leaderboard-hero {
+      padding: 40px 20px;
+      text-align: center;
+      background: linear-gradient(180deg, #0e1a28, #0a0f1c);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    }
+
+    .leaderboard-hero img {
+      height: 64px;
+      filter: brightness(0) invert(1);
+    }
+
+    .leaderboard-hero h1 {
+      margin-top: 12px;
+      font-size: 2.2rem;
+      color: #fff;
+    }
+
+    .leaderboard-hero p {
+      color: #9fb6c6;
+      font-size: 1rem;
+    }
+
+    .board-wrap {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 20px;
+    }
+
+    /* Week selector */
+    .week-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .week-picker label {
+      color: #9fb6c6;
+      align-self: center;
+    }
+    .week-picker select {
+      background: #141c2b;
+      color: #fff;
+      border: 1px solid #2d3a4f;
+      border-radius: 6px;
+      padding: 8px 12px;
+    }
+
+    /* Leaderboard table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #101826;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.5);
+    }
+    th, td {
+      padding: 14px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    th {
+      color: #cfe7f4;
+      font-weight: 600;
+      background: #141c2b;
+    }
+    tbody tr:hover {
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Rank styles */
+    .rank {
+      font-weight: 700;
+      text-align: center;
+    }
+    .rank-1 { color: #ffd166; font-size: 1.3rem; }
+    .rank-2 { color: #fcbf49; }
+    .rank-3 { color: #f77f00; }
+
+    /* Responsive cards for mobile */
+    @media (max-width: 768px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead {
+        display: none;
+      }
+      tbody tr {
+        margin: 12px 0;
+        background: #141c2b;
+        border-radius: 8px;
+        padding: 12px;
+      }
+      td {
+        border: none;
+        padding: 8px 0;
+      }
+      td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #9fb6c6;
+        display: block;
+        margin-bottom: 4px;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px 0;
+      color: #7b8a92;
+      background: #041018;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="leaderboard-hero">
+    <img src="img/FullLogo_Transparent.png" alt="Hackademic">
+    <h1>Weekly Leaderboard</h1>
+    <p>Track top players, encourage healthy competition, and celebrate progress 🚀</p>
+  </header>
+
+  <main>
+    <div class="board-wrap">
+      <div class="week-picker">
+  <label for="weekSelect">Select week:</label>
+  <select id="weekSelect"></select>
+  <button id="refreshBtn" style="margin-left:8px;padding:8px 12px;background:#00aaff;border:none;border-radius:6px;color:#fff;cursor:pointer">Refresh</button>
+  <button id="homeBtn" style="margin-left:8px;padding:8px 12px;background:#22c55e;border:none;border-radius:6px;color:#072a12;cursor:pointer">Back to home</button>
+  <div id="lastUpdated" style="margin-left:12px;color:#9fb6c6;align-self:center"></div>
+      </div>
+
+      <section id="leaderboardSection">
+        <table aria-label="Leaderboard table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Points</th>
+              <th>Accuracy</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <small>© Hackademic</small>
+  </footer>
+
+  <script>
+    async function fetchLeaderboard(week, limit=10){
+      const tbody = document.getElementById('leaderboardBody');
+      tbody.innerHTML = '<tr><td colspan="5" style="color:#9fb6c6;text-align:center">Loading...</td></tr>';
+      try{
+        const res = await fetch(`/api/leaderboard?week=${encodeURIComponent(week)}&limit=${limit}`);
+        if(!res.ok){
+          tbody.innerHTML = `<tr><td colspan="5" style="color:#f77;text-align:center">Failed to load</td></tr>`;
+          return;
+        }
+        const data = await res.json();
+  const list = data.leaders || [];
+  const lastUpdated = data.last_updated || null;
+  if(lastUpdated){ document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date(lastUpdated).toLocaleString(); }
+        if(list.length === 0){
+          tbody.innerHTML = '<tr><td colspan="5" style="color:#9fb6c6;text-align:center">No scores for this week yet.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = '';
+        list.forEach((row, idx) => {
+          const tr = document.createElement('tr');
+          const rankClass = idx===0?'rank-1':idx===1?'rank-2':idx===2?'rank-3':'';
+          tr.innerHTML = `
+            <td class="rank ${rankClass}" data-label="Rank">${idx+1}</td>
+            <td data-label="Player">${row.username}</td>
+            <td data-label="Points">${row.points}</td>
+            <td data-label="Accuracy">${row.accuracy||''}</td>`;
+          tbody.appendChild(tr);
+        });
+      }catch(err){
+        console.error(err);
+        tbody.innerHTML = '<tr><td colspan="5" style="color:#f77;text-align:center">Error loading leaderboard</td></tr>';
+      }
+    }
+
+    document.getElementById('weekSelect').addEventListener('change', (e) => {
+      fetchLeaderboard(e.target.value);
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', ()=>{
+      fetchLeaderboard(document.getElementById('weekSelect').value);
+    });
+
+    document.getElementById('homeBtn').addEventListener('click', ()=>{
+      // navigate back to the main homepage
+      window.location.href = 'index2.html';
+    });
+
+    // populate recent weeks
+    function getIsoWeek(date){
+      const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = tmp.getUTCDay() || 7;
+      tmp.setUTCDate(tmp.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(),0,1));
+      const weekNo = Math.ceil((((tmp - yearStart) / 86400000) + 1)/7);
+      return `${tmp.getUTCFullYear()}-W${String(weekNo).padStart(2,'0')}`;
+    }
+
+    const sel = document.getElementById('weekSelect');
+    const today = new Date();
+    for(let i=0;i<6;i++){
+      const d = new Date(); d.setDate(today.getDate() - i*7);
+      const w = getIsoWeek(d);
+      const opt = document.createElement('option'); opt.value = w; opt.textContent = w;
+      sel.appendChild(opt);
+    }
+
+    // If a week is provided via query param, pre-select it and fetch
+    function getQueryParam(name){
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    const requestedWeek = getQueryParam('week');
+    if(requestedWeek){
+      // if the requested week exists in the options, select it; otherwise add it
+      let found = Array.from(sel.options).some(o=>o.value === requestedWeek);
+      if(!found){
+        const opt = document.createElement('option'); opt.value = requestedWeek; opt.textContent = requestedWeek;
+        sel.insertBefore(opt, sel.firstChild);
+      }
+      sel.value = requestedWeek;
+      fetchLeaderboard(requestedWeek);
+    } else {
+      fetchLeaderboard(sel.value);
+    }
+  </script>
+</body>
+</html>

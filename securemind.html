@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureMind Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0d1b2a, #1b263b);
+      color: #e0e1dd;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .quiz-card {
+      background: linear-gradient(145deg, #1b263b, #0d1b2a);
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%;
+      max-width: 650px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      text-align: center;
+      color: #fff;
+    }
+    .option-btn {
+      background: #415a77;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      margin: 10px 0;
+      width: 100%;
+      transition: all 0.2s ease-in-out;
+      font-weight: 600;
+    }
+    .option-btn:hover {
+      background: #778da9;
+      transform: scale(1.02);
+    }
+    #score {
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #ffd60a;
+    }
+    .leader-btn {
+      margin-top: 20px;
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .leader-btn:hover {
+      background: #c9184a;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-card">
+    <h1>🧠 SecureMind Quiz</h1>
+    <h5 id="category"></h5>
+    <p id="question"></p>
+    <div id="options"></div>
+    <div id="score">Score: 0</div>
+    <button class="leader-btn" onclick="goLeaderboard()">🏆 Leaderboard</button>
+  </div>
+
+  <script>
+    let score = 0;
+    let currentQuestionId = null;
+    const username = localStorage.getItem("username") || "guest";
+
+    async function fetchQuestion() {
+      const res = await fetch("http://localhost:5000/api/quiz/question");
+      const data = await res.json();
+      document.getElementById("category").innerText = "Category: " + data.category;
+      document.getElementById("question").innerText = data.question;
+      currentQuestionId = data.qid;
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      data.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.className = "option-btn";
+        btn.onclick = () => submitAnswer(idx + 1);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    async function submitAnswer(choice) {
+      const res = await fetch("http://localhost:5000/api/quiz/evaluate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          qid: currentQuestionId,
+          choice: choice,
+          username: username
+        })
+      });
+
+      const data = await res.json();
+      score += data.points;
+      document.getElementById("score").innerText = "Score: " + score;
+      fetchQuestion();
+    }
+
+    function goLeaderboard() {
+      window.location.href = "leaderboard.html";
+    }
+
+    fetchQuestion();
+  </script>
+</body>
+</html>

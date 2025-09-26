@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SpamSlam — Phishing Detection</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
+<style>
+:root{
+  --bg-1:#071018;
+  --bg-2:#041018;
+  --card:#0c2632;
+  --accent:#00d1ff;
+  --danger:#ff5a5f;
+  --safe:#10b981;
+  --soft:#bfefff;
+  --glass: rgba(255,255,255,0.03);
+  --radius:14px;
+  font-family: 'Inter', sans-serif;
+}
+
+body{
+  background: radial-gradient(circle at 10% 10%, rgba(0,209,255,0.03), transparent 10%),
+              linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color:var(--soft);
+  padding:24px;
+  margin:0;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+.container{
+  max-width:1400px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: 1fr 400px;
+  gap:24px;
+  align-items:start;
+}
+
+/* Panel (main game area) */
+.panel{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
+    border:1px solid rgba(0,209,255,0.06);
+    padding:48px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    font-size: 1rem;
+    position: relative;
+}
+
+/* Dim overlay */
+.dim-bg{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.55);
+    z-index:1;
+    display:none;
+}
+
+/* Header */
+.header{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  margin-bottom:18px;
+}
+.title{
+  display:flex; gap:12px; align-items:center;
+}
+.logo{
+  width:48px; height:48px; border-radius:10px;
+  background: linear-gradient(135deg,#00d1ff,#0066ff);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; color:#001;
+  box-shadow:0 6px 18px rgba(0,100,255,0.18);
+}
+h1{ font-size:1.5rem; margin:0; color:#dff7ff; letter-spacing:0.2px; }
+p.tagline{ margin:0; color:#9fdff4; opacity:0.9; font-size:0.95rem; }
+
+/* Email card */
+.email-card{
+    margin-top:16px;
+    padding:28px;
+    border-radius:18px;
+    transition: transform .15s ease, box-shadow .15s ease;
+    background: var(--card);
+    border:1px solid rgba(255,255,255,0.05);
+    z-index:2;
+    position:relative;
+}
+.email-card.active{
+    transform:translateY(-6px);
+    box-shadow:0 18px 50px rgba(0,0,0,0.7), 0 0 24px rgba(0,209,255,0.1);
+}
+
+/* Email text */
+.email-meta{ display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+.sender{ font-weight:700; font-size:1.2rem; color:#eaffff; }
+.subject{ font-size:1.3rem; margin:10px 0; }
+.snippet{ font-size:1.05rem; color:#bfe9f8; opacity:0.9; margin:0; }
+
+/* Highlights */
+.highlights{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.chip{
+    background:var(--glass);
+    color:var(--soft);
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,0.03);
+    font-size:0.86rem;
+}
+.chip.warn{ border-color: rgba(255,90,95,0.2); box-shadow: inset 0 0 6px rgba(255,90,95,0.05); }
+.chip.safe{ border-color: rgba(16,185,129,0.2); box-shadow: inset 0 0 6px rgba(16,185,129,0.05); }
+
+/* Action bar */
+.actions{ display:flex; gap:12px; margin-top:16px; z-index:2; position:relative; }
+.btn{
+    padding:14px 20px; border-radius:12px; border:none; cursor:pointer; font-weight:700;
+    box-shadow:0 6px 18px rgba(0,0,0,0.5);
+    transition: transform .1s ease;
+}
+.btn:hover{ transform: scale(1.05); }
+.btn.phish{ background: linear-gradient(90deg,var(--danger),#ff2d55); color:#fff; }
+.btn.safe{ background: linear-gradient(90deg,var(--safe),#059669); color:#fff; }
+.btn.skip{ background: transparent; color:#9fdff4; border:1px dashed rgba(159,223,244,0.12); font-weight:600; }
+
+/* Sidebar */
+.sidebar{
+  position:sticky;
+  top:36px;
+  height: fit-content;
+  display:flex;
+  flex-direction: column;
+  gap:16px;
+}
+.stat-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  padding:22px;
+  border-radius:16px;
+  border:1px solid rgba(0,209,255,0.04);
+}
+.progress{ height:12px; background:rgba(255,255,255,0.03); border-radius:8px; overflow:hidden; }
+.progress > i{ display:block; height:100%; width:0%; background:linear-gradient(90deg,#00d1ff,#0066ff); }
+.score{ font-size:1.8rem; font-weight:800; color:#fff; margin:6px 0; }
+.meta{ color:#9fdff4; font-size:0.9rem; }
+
+/* toast */
+.toast{
+    position:fixed; right:24px; bottom:24px; background:#06242a; color:#e6eef6;
+    padding:12px 16px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    border:1px solid rgba(0,209,255,0.06);
+    transform:translateY(16px); opacity:0; transition:all .24s ease;
+    z-index:999;
+}
+.toast.show{ transform:translateY(0); opacity:1; }
+
+/* Responsive */
+@media (max-width:1200px){
+  .container{ grid-template-columns: 1fr 320px; gap:20px; }
+  .panel{ padding:36px; font-size:0.95rem; }
+  .email-card{ padding:22px; }
+  .sender{ font-size:1.15rem; }
+  .subject{ font-size:1.2rem; }
+  .actions .btn{ font-size:1rem; padding:12px 16px; }
+}
+@media (max-width:800px){
+  .container{ grid-template-columns:1fr; }
+  .sidebar{ position:relative; top:auto; }
+}
+</style>
+</head>
+<body>
+  {% for item in items %}
+   {{ item }}
+{% endfor %}
+
+<div class="dim-bg" id="dimBg"></div>
+<div class="container">
+  <main class="panel" aria-live="polite">
+    <div class="header">
+      <div class="title">
+        <div class="logo">SS</div>
+        <div>
+          <h1>SpamSlam</h1>
+          <p class="tagline">Spot phishing — beat the AI. Hard mode enabled.</p>
+        </div>
+      </div>
+      <div>
+        <small class="meta">Round <span id="round">1</span> · <span id="remaining">30</span> emails left</small>
+      </div>
+    </div>
+
+    <section id="emailArea" tabindex="0"></section>
+
+    <div class="actions">
+      <button class="btn phish" id="btnPhish" title="Mark as Phishing (P)">PHISH (P)</button>
+      <button class="btn safe" id="btnSafe" title="Mark as Safe (S)">SAFE (S)</button>
+      <button class="btn skip" id="btnSkip" title="Skip (K)">SKIP</button>
+    </div>
+  </main>
+
+  <aside class="sidebar">
+    <div class="stat-card">
+      <div class="meta">Score</div>
+      <div class="score" id="score">0</div>
+      <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+        <div class="meta">Accuracy</div>
+        <div class="meta" id="accuracy">0%</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="meta">Progress</div>
+      <div class="progress" style="margin-top:8px"><i id="progressBar"></i></div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px">
+        <small class="meta">Correct</small><small class="meta" id="correctCount">0</small>
+      </div>
+    </div>
+
+    <div class="stat-card" id="hintCard">
+      <div class="meta">Tip</div>
+      <p style="margin:8px 0 0;line-height:1.4;color:#bfefff">
+        Watch sender domains and urgent verbs like “Verify” or “Suspended”. Links that do not match the sender are suspicious.
+      </p>
+    </div>
+    <div class="stat-card">
+      <button id="btnSubmitScore" class="btn" style="width:100%;background:linear-gradient(90deg,#ff7a18,#ff4e50);color:#fff;padding:12px;border-radius:10px;border:none;font-weight:800">Submit Score</button>
+    </div>
+  </aside>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<!-- Center feedback overlay -->
+<div id="feedbackOverlay" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:1000">
+  <div id="feedbackCard" style="pointer-events:auto;min-width:320px;max-width:90%;padding:28px;border-radius:16px;text-align:center;display:none;">
+    <div id="feedbackTitle" style="font-size:44px;font-weight:900;margin-bottom:6px"></div>
+    <div id="feedbackSub" style="font-size:18px;opacity:0.9"></div>
+  </div>
+</div>
+
+<script>
+/* ====== Demo synthetic emails (30) ====== */
+const syntheticEmails = Array.from({length:30}).map((_,i) => {
+  const phish = Math.random() < 0.46;
+  return {
+    id:i,
+    sender: phish ? `security@bank-verify${i}.com` : `noreply@service${i}.com`,
+    subject: phish ? `Urgent: Verify Account #${1000+i}` : `Your weekly update #${i}`,
+    body: phish ? `We detected suspicious activity. Click here: http://malicious.example/${i}` : `Thanks for using our service. Your receipt ${i} is attached.`,
+    label: phish ? 1 : 0
+  };
+});
+
+let currentIndex=0, total=syntheticEmails.length, score=0, correct=0, attempts=0;
+
+/* ====== UI Elements ====== */
+const emailArea=document.getElementById('emailArea');
+const roundEl=document.getElementById('round');
+const remainingEl=document.getElementById('remaining');
+const scoreEl=document.getElementById('score');
+const accuracyEl=document.getElementById('accuracy');
+const correctCountEl=document.getElementById('correctCount');
+const progressBar=document.getElementById('progressBar');
+const toast=document.getElementById('toast');
+const dimBg=document.getElementById('dimBg');
+
+/* ====== Helper ====== */
+function showEmail(email){
+    emailArea.innerHTML=`
+    <div class="email-card active">
+      <div class="email-meta">
+        <div class="sender">${email.sender}</div>
+      </div>
+      <div class="subject">${email.subject}</div>
+      <p class="snippet">${email.body}</p>
+    </div>`;
+    roundEl.textContent=currentIndex+1;
+    remainingEl.textContent=total-currentIndex;
+}
+function updateStats(){
+    scoreEl.textContent=score;
+    correctCountEl.textContent=correct;
+    accuracyEl.textContent=total>0?((correct/total)*100).toFixed(2)+'%':'0%';
+    progressBar.style.width = ((currentIndex/total)*100)+'%';
+}
+function showToast(msg){
+    toast.textContent=msg;
+    toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'),1200);
+}
+
+function showFeedback(correctFlag, correctLabelText){
+    const card = document.getElementById('feedbackCard');
+    const title = document.getElementById('feedbackTitle');
+    const sub = document.getElementById('feedbackSub');
+    if(correctFlag){
+      card.style.background = 'linear-gradient(90deg,#10b981,#059669)';
+      title.textContent = 'CORRECT';
+      title.style.color = '#fff';
+      sub.textContent = '+5 points';
+    } else {
+      card.style.background = 'linear-gradient(90deg,#ff7a18,#ff4e50)';
+      title.textContent = 'INCORRECT';
+      title.style.color = '#fff';
+      sub.innerHTML = `-5 points — Correct: <strong>${correctLabelText}</strong>`;
+    }
+    card.style.display = 'block';
+    card.style.opacity = '1';
+    // center overlay visible briefly
+    setTimeout(()=>{ card.style.display='none'; }, 1400);
+}
+
+/* ====== Action Handlers ====== */
+function handleAction(action){
+    const email=syntheticEmails[currentIndex];
+    let res='';
+  if(action==='phish'){
+    const isCorrect = email.label===1;
+    attempts++;
+    if(isCorrect){ score += 5; correct++; showFeedback(true,''); }
+    else { score -= 5; showFeedback(false,'Legit'); }
+  } else if(action==='safe'){
+    const isCorrect = email.label===0;
+    attempts++;
+    if(isCorrect){ score += 5; correct++; showFeedback(true,''); }
+    else { score -= 5; showFeedback(false,'Phish'); }
+  } else { showToast('Skipped!'); }
+    currentIndex++;
+    if(currentIndex<total) showEmail(syntheticEmails[currentIndex]);
+    updateStats();
+}
+
+/* ====== Button clicks ====== */
+document.getElementById('btnPhish').addEventListener('click',()=>handleAction('phish'));
+document.getElementById('btnSafe').addEventListener('click',()=>handleAction('safe'));
+document.getElementById('btnSkip').addEventListener('click',()=>handleAction('skip'));
+
+// Submit score -> POST /api/score and redirect to leaderboard
+document.getElementById('btnSubmitScore').addEventListener('click', async ()=>{
+  const username = (JSON.parse(sessionStorage.getItem('hackademic_user')||'null')||{}).username || 'anonymous';
+  const week = new Date().toISOString().slice(0,10);
+  const accuracyStr = attempts?Math.round((correct/attempts)*100)+'%':'0%';
+  const payload = { username, points: score, accuracy: accuracyStr, week };
+  try{
+    const res = await fetch('/api/score', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await res.json().catch(()=>({}));
+    if(res.ok){
+      // if the server says congrats (accuracy >= 90%), show a popup then redirect
+      if(data && data.congrats){
+        // show a celebratory overlay
+        const fb = document.getElementById('feedbackCard');
+        const title = document.getElementById('feedbackTitle');
+        const sub = document.getElementById('feedbackSub');
+        fb.style.display = 'block';
+        fb.style.background = 'linear-gradient(90deg,#ffd166,#ff7a18)';
+        title.textContent = 'CONGRATULATIONS!';
+        title.style.color = '#001';
+        title.style.fontSize = '40px';
+        sub.textContent = 'Excellent work — accuracy ≥ 90%';
+        // wait 2s then redirect
+        setTimeout(()=> window.location.href = '/leaderboard.html', 2000);
+      } else {
+        window.location.href = '/leaderboard.html';
+      }
+    } else {
+      alert(data.message || 'Failed to submit score');
+    }
+  }catch(e){ alert('Submit error'); }
+});
+
+/* ====== Keyboard shortcuts ====== */
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='p'||e.key==='P') handleAction('phish');
+  if(e.key==='s'||e.key==='S') handleAction('safe');
+  if(e.key==='k'||e.key==='K') handleAction('skip');
+});
+
+/* ====== Init ====== */
+showEmail(syntheticEmails[currentIndex]);
+updateStats();
+</script>
+</body>
+</html>

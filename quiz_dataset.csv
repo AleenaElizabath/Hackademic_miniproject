@@ -1,0 +1,251 @@
+category,question,option1,option2,option3,option4,answer,difficult
+Network Security,What does HTTPS stand for?,Hypertext Transfer Protocol Secure,Number used once in crypto,Securing Zigbee traffic,Extracting user and resource info,Hypertext Transfer Protocol Secure,medium
+Network Security,What does TLS stand for?,File path manipulation,Protecting container workloads,Virtual firewall rules,Transport Layer Security,Transport Layer Security,medium
+Network Security,What is the primary purpose of Firewall?,Inject code via heap,Evaluating security policies,Installs other malware,Filters network traffic based on rules,Filters network traffic based on rules,medium
+Network Security,What does VPN stand for?,Virtual Private Network,Loading remote scripts,Secure Sockets Layer,Exploitation framework,Virtual Private Network,medium
+Network Security,What is the primary purpose of Nmap?,Securing IoT messaging protocol,Infects the boot sector,Network scanning tool,Investigating smart device data,Network scanning tool,medium
+Network Security,What does IDS stand for?,“Everyone’s doing it”),Intrusion Detection System,Open-source intelligence gathering,Unsafe library calls,Intrusion Detection System,medium
+Network Security,What does IPS stand for?,Handling cloud credentials,Installs other malware,Top 10 IoT vulnerabilities,Intrusion Prevention System,Intrusion Prevention System,medium
+Network Security,What does DNS stand for?,Infected online ads,Weak out-of-box passwords,Resolves domain names to IPs,Cross-Site Scripting,Resolves domain names to IPs,medium
+Network Security,What does DMZ stand for?,Mapping Wi-Fi networks,Cracking encrypted drives,Protecting device access,Network segment exposed to untrusted networks,Network segment exposed to untrusted networks,medium
+Network Security,What is the primary purpose of DDoS?,Overwhelming a host with traffic,Impersonating authority,HTTP header tampering,Port scanning tool,Overwhelming a host with traffic,medium
+Network Security,What does NAT stand for?,Secure Sockets Layer,Issues digital certificates,Translates private IPs to public IPs,Infects the boot sector,Translates private IPs to public IPs,medium
+Network Security,What does SCP stand for?,Secure file copy over SSH,Server-Side Request Forgery,Safe device onboarding,Creating bit-for-bit copies,Secure file copy over SSH,medium
+Network Security,What does SNMP stand for?,Simple Network Management Protocol,Synthetic media deception,Hides malicious activities,"Never trust, always verify",Simple Network Management Protocol,medium
+Network Security,What does OSI Layer 3 stand for?,Network layer of OSI model,Infects the boot sector,Highly customized scenario,Analyzing RAM contents,Network layer of OSI model,medium
+Network Security,What does SSH stand for?,“Everyone’s doing it”),Tracing email origins,Secure shell for remote login,Role-Based Access Control,Secure shell for remote login,medium
+Network Security,What does DHCP stand for?,Assigns dynamic IP addresses,Auto-logout timer,Platform as a Service,Protecting device access,Assigns dynamic IP addresses,medium
+Network Security,What is the primary purpose of Wireshark?,Untrusted object replay,Analyzing RAM contents,Using relationships,Packet capture and analysis tool,Packet capture and analysis tool,medium
+Network Security,What does SSL stand for?,Evaluating security policies,Secure Sockets Layer,Authorization framework,Accessing restricted files,Secure Sockets Layer,medium
+Network Security,What does UDP stand for?,Key Management Service,Constrained Application Protocol,Random data added to hash inputs,User Datagram Protocol,User Datagram Protocol,medium
+Network Security,What does ARP stand for?,Address Resolution Protocol,Reviewing cloud logs,Alters code on each infection,Security Operations Center,Address Resolution Protocol,medium
+Network Security,What is the primary purpose of Phishing?,Tricking users to reveal data,Unreleased memory,Urgent deadlines,Key Management Service,Tricking users to reveal data,medium
+Network Security,What is the primary purpose of Least Privilege?,Handling cloud credentials,Granting only necessary permissions,Authenticates message origin,Translates private IPs to public IPs,Granting only necessary permissions,medium
+Network Security,What is the primary purpose of Segmentation?,Bypasses normal authentication,Targeted phishing attack,Dividing network into zones,Exploitation framework,Dividing network into zones,medium
+Network Security,What does ACL stand for?,Secure shell for remote login,Highly customized scenario,X.509 certificate login,Access Control List for filtering,Access Control List for filtering,medium
+Network Security,What does RSA stand for?,Records keystrokes,Reconstructing event order,Cross-Site Scripting,Asymmetric encryption algorithm,Asymmetric encryption algorithm,medium
+Cryptography,What does AES stand for?,Advanced Encryption Standard,Reducing identified risks,Documenting evidence handling,Extracting user and resource info,Advanced Encryption Standard,medium
+Cryptography,What does RSA stand for?,Rivest–Shamir–Adleman algorithm,Single Sign-On,Resolves domain names to IPs,Security Operations Center,Rivest–Shamir–Adleman algorithm,medium
+Cryptography,What does ECC stand for?,Maps data to fixed length digest,Number used once in crypto,Probing targets for open ports,Elliptic Curve Cryptography,Elliptic Curve Cryptography,medium
+Cryptography,What does SHA-256 stand for?,Unbreakable when used correctly,Cross-Site Scripting,Secure Hash Algorithm 256-bit,Pre-warning defenses,Secure Hash Algorithm 256-bit,medium
+Cryptography,What does MD5 stand for?,Message Digest 5 hash,Handling cloud credentials,Constrained Application Protocol,Verifying device identity,Message Digest 5 hash,medium
+Cryptography,What is the primary purpose of Diffie-Hellman?,Using relationships,Identifying vulnerabilities,Key exchange protocol,Patching device software,Key exchange protocol,medium
+Cryptography,What is the primary purpose of Digital Signature?,Bypasses normal authentication,Testing memory boundaries,Spreads via document macros,Authenticates message origin,Authenticates message origin,medium
+Cryptography,What is the primary purpose of Hash Function?,Exceeds memory buffer,Authenticates message origin,Maps data to fixed length digest,Advanced Encryption Standard,Maps data to fixed length digest,medium
+Cryptography,What is the primary purpose of Symmetric Encryption?,Location-based control,Observing keystrokes,Locking server certs,Same key to encrypt/decrypt,Same key to encrypt/decrypt,medium
+Cryptography,What is the primary purpose of Asymmetric Encryption?,Resolves domain names to IPs,Packet capture and analysis tool,Access Control List,Public/private key pair,Public/private key pair,medium
+Cryptography,What is the primary purpose of Salt?,Secure Sockets Layer,Hiding data inside other data,Server-Side Request Forgery,Random data added to hash inputs,Random data added to hash inputs,medium
+Cryptography,What is the primary purpose of Nonce?,Number used once in crypto,HTTP header tampering,Unreleased memory,Uncontrolled printf formats,Number used once in crypto,medium
+Cryptography,What does PKI stand for?,Exploiting mental shortcuts,Secure Hash Algorithm 256-bit,Top 10 IoT vulnerabilities,Public Key Infrastructure,Public Key Infrastructure,medium
+Cryptography,What does HMAC stand for?,Injecting SQL commands,Over-the-air patching,Location-based control,Hash-based Message Authentication Code,Hash-based Message Authentication Code,medium
+Cryptography,What does PGP stand for?,Pretty Good Privacy,Offering false incentives,Standalone self-replicating malware,Translates private IPs to public IPs,Pretty Good Privacy,medium
+Cryptography,What is the primary purpose of Public Key?,Securing IoT messaging protocol,Key that can be widely shared,Secure Hash Algorithm 256-bit,Simple Network Management Protocol,Key that can be widely shared,medium
+Cryptography,What is the primary purpose of Private Key?,Translates private IPs to public IPs,Offering false incentives,Secret key kept by owner,Documenting findings,Secret key kept by owner,medium
+Cryptography,What is the primary purpose of TLS Handshake?,Random input vulnerability test,"Never trust, always verify",Over-the-air patching,Negotiates encryption parameters,Negotiates encryption parameters,medium
+Cryptography,What is the primary purpose of Block Cipher?,Encrypts fixed–size data blocks,Collecting data from running systems,Alters code on each infection,Impersonating authority,Encrypts fixed–size data blocks,medium
+Cryptography,What is the primary purpose of Stream Cipher?,Encrypts data bit-by-bit,Cloud network segment,Protecting edge devices,Comprehensive security review,Encrypts data bit-by-bit,medium
+Cryptography,What is the primary purpose of One-Time Pad?,Mining public profiles,Following authorized users,Testing for DB injection,Unbreakable when used correctly,Unbreakable when used correctly,medium
+Cryptography,What is the primary purpose of Steganography?,Directory access protocol,Hiding data inside other data,Role-Based Access Control,Data Loss Prevention,Hiding data inside other data,medium
+Cryptography,What is the primary purpose of Certificate Authority?,Inspecting file metadata,Offering service for info,Issues digital certificates,Resolves domain names to IPs,Issues digital certificates,medium
+Cryptography,What does CRL stand for?,Posing as someone else,Temporary elevated rights,Certificate Revocation List,Dissecting malware code,Certificate Revocation List,medium
+Cryptography,What is the primary purpose of Cryptanalysis?,Bluetooth Low-Energy safety,Breaking or analyzing ciphers,Encrypts fixed–size data blocks,Verifying device state,Breaking or analyzing ciphers,medium
+Malware,What is the primary purpose of Virus?,Fake threat pop-ups,Self-replicating code attaching to programs,Analyzing RAM contents,Giving to get,Self-replicating code attaching to programs,medium
+Malware,What is the primary purpose of Worm?,Standalone self-replicating malware,Reducing identified risks,Random input vulnerability test,Granting only necessary permissions,Standalone self-replicating malware,medium
+Malware,What is the primary purpose of Trojan?,Malware disguised as legitimate software,Time-based access,“Everyone’s doing it”),Creating bit-for-bit copies,Malware disguised as legitimate software,medium
+Malware,What is the primary purpose of Ransomware?,Gives attacker remote control,"Never trust, always verify",Reconstructing event order,Encrypts files for ransom,Encrypts files for ransom,medium
+Malware,What is the primary purpose of Spyware?,Unchanged credentials,Gathers user data without consent,Restoring erased data,Windows registry investigation,Gathers user data without consent,medium
+Malware,What is the primary purpose of Adware?,User Datagram Protocol,Displays unwanted advertisements,Unchanged credentials,Pre-warning defenses,Displays unwanted advertisements,medium
+Malware,What is the primary purpose of Rootkit?,Number used once in crypto,Protecting stored data,Hides malicious activities,Tracing email origins,Hides malicious activities,medium
+Malware,What is the primary purpose of Bootkit?,Infects the boot sector,Testing memory boundaries,Changes code to evade detection,Simulated phishing attack,Infects the boot sector,medium
+Malware,What is the primary purpose of Logic Bomb?,Encrypts data bit-by-bit,Fingerprint or retina scan,Analyzing RAM contents,Triggers malicious action on condition,Triggers malicious action on condition,medium
+Malware,What is the primary purpose of Keylogger?,Segregation of Duties,Restoring erased data,Identifying abnormal behavior,Records keystrokes,Records keystrokes,medium
+Malware,What is the primary purpose of Polymorphic Malware?,Gathers user data without consent,Digitally signing firmware,Changes code to evade detection,Exploiting mental shortcuts,Changes code to evade detection,medium
+Malware,What is the primary purpose of Macro Virus?,Encrypting IoT comms,Multi-Factor Authentication,Spreads via document macros,Key exchange protocol,Spreads via document macros,medium
+Malware,What is the primary purpose of Backdoor?,Auto-logout timer,Bypasses normal authentication,Elliptic Curve Cryptography,Windows registry investigation,Bypasses normal authentication,medium
+Malware,What is the primary purpose of Dropper?,Cross-origin missetup,Analyzing smartphones/tablets,Installs other malware,Manipulating people,Installs other malware,medium
+Malware,What is the primary purpose of Botnet?,Restoring erased data,Network of compromised machines,Authorization framework,Displays unwanted advertisements,Network of compromised machines,medium
+Malware,What is the primary purpose of Drive-by Download?,Simulated phishing attack,Automatic malware download,Documenting findings,Changes code to evade detection,Automatic malware download,medium
+Malware,What is the primary purpose of Fileless Malware?,Resides in memory only,Secure Sockets Layer,Securing components,Port scanning tool,Resides in memory only,medium
+Malware,What is the primary purpose of Firmware Malware?,User Datagram Protocol,Protecting stored data,Infects device firmware,Over-the-air patching,Infects device firmware,medium
+Malware,What is the primary purpose of Phishing?,Documenting findings,Email-based credential theft,Role-Based Access Control,Random data added to hash inputs,Email-based credential theft,medium
+Malware,What is the primary purpose of Logic Bomb?,Conditional malicious code,Secure file copy over SSH,Overwhelming a host with traffic,Uncontrolled printf formats,Conditional malicious code,medium
+Malware,What is the primary purpose of Remote Access Trojan?,Reconstructing event order,Gives attacker remote control,Infects the boot sector,Protecting real-time OS,Gives attacker remote control,medium
+Malware,What is the primary purpose of Wiper?,Gathering target info,Protecting data in motion,Permanently deletes data,Rules for passwords,Permanently deletes data,medium
+Malware,What is the primary purpose of Polymorphic Virus?,Alters code on each infection,Gathers user data without consent,Network layer of OSI model,Synthetic media deception,Alters code on each infection,medium
+Malware,What is the primary purpose of Malvertising?,Infected online ads,Extracting keys via leaks,Simple Network Management Protocol,File path manipulation,Infected online ads,medium
+Malware,What is the primary purpose of Cross-Site Scripting?,Reviewing system logs,“Everyone’s doing it”),Inventing fake scenarios,Injects script into web pages,Injects script into web pages,medium
+Ethical Hacking,What is the primary purpose of Footprinting?,Collecting data from running systems,Injecting SQL commands,Gathering target info,Temporary elevated rights,Gathering target info,medium
+Ethical Hacking,What is the primary purpose of Scanning?,Probing targets for open ports,Bluetooth Low-Energy safety,“Everyone’s doing it”),Unvalidated redirects,Probing targets for open ports,medium
+Ethical Hacking,What is the primary purpose of Enumeration?,Verbose debugging left on,Extracting user and resource info,Assessing Wi-Fi security,Authenticates message origin,Extracting user and resource info,medium
+Ethical Hacking,What is the primary purpose of Vulnerability Assessment?,Urgent deadlines,Predictable random numbers,Identifying vulnerabilities,Port scanning tool,Identifying vulnerabilities,medium
+Ethical Hacking,What is the primary purpose of Penetration Testing?,“Everyone’s doing it”),Exploiting found vulnerabilities,Network scanning tool,Open-source intelligence gathering,Exploiting found vulnerabilities,medium
+Ethical Hacking,What is the primary purpose of Social Engineering?,Breaking or analyzing ciphers,Manipulating people,Friendly approach,Thwart brute-force attempts,Manipulating people,medium
+Ethical Hacking,What is the primary purpose of Phishing Test?,Building system timelines,Ticket-based authentication,Simulated phishing attack,Auto-logout timer,Simulated phishing attack,medium
+Ethical Hacking,What is the primary purpose of Password Cracking?,Brute forcing passwords,Handling cloud credentials,Top 10 IoT vulnerabilities,Message Digest 5 hash,Brute forcing passwords,medium
+Ethical Hacking,What is the primary purpose of Metasploit?,Inject code via heap,Exploitation framework,Isolating IoT networks,User Datagram Protocol,Exploitation framework,medium
+Ethical Hacking,What is the primary purpose of Nmap?,Inject code via heap,Unvalidated redirects,Port scanning tool,Isolating IoT networks,Port scanning tool,medium
+Ethical Hacking,What is the primary purpose of SQL Injection Test?,Targeted phishing attack,Testing for script injection,Uncontrolled printf formats,Testing for DB injection,Testing for DB injection,medium
+Ethical Hacking,What is the primary purpose of Buffer Overflow Test?,Testing memory boundaries,Protecting container workloads,Infected online ads,"Small, modular services",Testing memory boundaries,medium
+Ethical Hacking,What is the primary purpose of Privilege Escalation?,Gaining higher rights,Protecting stored data,Posing as someone else,Division of security duties,Gaining higher rights,medium
+Ethical Hacking,What is the primary purpose of Reverse Engineering?,Analyzing binaries,Securing IoT messaging protocol,Advanced Encryption Standard,Adaptive access decisions,Analyzing binaries,medium
+Ethical Hacking,What is the primary purpose of Exploit Development?,Same key to encrypt/decrypt,Key exchange protocol,Coding new exploits,Exploitation framework,Coding new exploits,medium
+Ethical Hacking,What is the primary purpose of XSS Testing?,Testing for script injection,Permanently deletes data,Over-the-air patching,Highly customized scenario,Testing for script injection,medium
+Ethical Hacking,What is the primary purpose of Fuzzing?,Maps data to fixed length digest,SMS-based phishing,Asymmetric encryption algorithm,Random input vulnerability test,Random input vulnerability test,medium
+Ethical Hacking,What is the primary purpose of Wireless Testing?,Weak out-of-box passwords,Extracting keys via leaks,X.509 certificate login,Assessing Wi-Fi security,Assessing Wi-Fi security,medium
+Ethical Hacking,What is the primary purpose of Vulnerability Reporting?,Top 10 IoT vulnerabilities,Documenting findings,Network segment exposed to untrusted networks,Extracting keys via leaks,Documenting findings,medium
+Ethical Hacking,What is the primary purpose of Security Audit?,Separating memory spaces,Injecting SQL commands,Comprehensive security review,X.509 certificate login,Comprehensive security review,medium
+Ethical Hacking,What is the primary purpose of Policy Review?,Packet capture and analysis tool,Auto-logout timer,Evaluating security policies,Recovering files from fragments,Evaluating security policies,medium
+Ethical Hacking,What is the primary purpose of Risk Assessment?,Cracking encrypted drives,Estimating impact/likelihood,Collecting data from running systems,Security Operations Center,Estimating impact/likelihood,medium
+Ethical Hacking,What is the primary purpose of Mitigation Strategies?,Reducing identified risks,Predictable random numbers,Alters code on each infection,Searching trash for data,Reducing identified risks,medium
+Ethical Hacking,What does OSINT stand for?,Open-source intelligence gathering,Extracting keys via leaks,Security Assertion Markup Lang,Bluetooth Low-Energy safety,Open-source intelligence gathering,medium
+Ethical Hacking,What is the primary purpose of WAR Driving?,Changes code to evade detection,Mapping Wi-Fi networks,Random input vulnerability test,Uncontrolled printf formats,Mapping Wi-Fi networks,medium
+Digital Forensics,What is the primary purpose of Chain of Custody?,Documenting evidence handling,File path manipulation,Inspecting file metadata,Fingerprint or retina scan,Documenting evidence handling,medium
+Digital Forensics,What is the primary purpose of Disk Imaging?,Faking sensor data,Over-the-air patching,Creating bit-for-bit copies,Malware disguised as legitimate software,Creating bit-for-bit copies,medium
+Digital Forensics,What is the primary purpose of Write Blocker?,Authorization framework,Mapping Wi-Fi networks,Random data added to hash inputs,Prevents disk modifications,Prevents disk modifications,medium
+Digital Forensics,What is the primary purpose of File Carving?,Recovering files from fragments,Virtual firewall rules,“Everyone’s doing it”),Secure shell for remote login,Recovering files from fragments,medium
+Digital Forensics,What is the primary purpose of Timeline Analysis?,Network of compromised machines,Exploiting mental shortcuts,Reconstructing event order,HTTP header tampering,Reconstructing event order,medium
+Digital Forensics,What is the primary purpose of Memory Forensics?,Analyzing RAM contents,Changes code to evade detection,Simulated phishing attack,Extracting user and resource info,Analyzing RAM contents,medium
+Digital Forensics,What is the primary purpose of Live Acquisition?,Collecting data from running systems,Triggers malicious action on condition,Cloud network segment,Verifying data integrity,Collecting data from running systems,medium
+Digital Forensics,What is the primary purpose of Hash Analysis?,Verifying data integrity,Assessing Wi-Fi security,Voice-based phishing,Stolen server config,Verifying data integrity,medium
+Digital Forensics,What is the primary purpose of Artifact Extraction?,Pulling useful data snippets,Exploitation framework,Restoring erased data,User Datagram Protocol,Pulling useful data snippets,medium
+Digital Forensics,What is the primary purpose of Metadata Analysis?,Intrusion Detection System,Infrastructure as a Service,Number used once in crypto,Inspecting file metadata,Inspecting file metadata,medium
+Digital Forensics,What is the primary purpose of Log Analysis?,Digitally signing firmware,Temporary elevated rights,Reviewing system logs,Inject code via heap,Reviewing system logs,medium
+Digital Forensics,What is the primary purpose of Email Header Analysis?,Dissecting malware code,Assessing Wi-Fi security,Tracing email origins,Unreleased memory,Tracing email origins,medium
+Digital Forensics,What is the primary purpose of Registry Analysis?,Maps data to fixed length digest,Windows registry investigation,"Small, modular services",Port scanning tool,Windows registry investigation,medium
+Digital Forensics,What is the primary purpose of Network Forensics?,Records keystrokes,Capturing network traffic,Infects the boot sector,Probing targets for open ports,Capturing network traffic,medium
+Digital Forensics,What is the primary purpose of Cloud Forensics?,Investigating cloud artifacts,Identifying vulnerabilities,Targeted phishing attack,Brute forcing passwords,Investigating cloud artifacts,medium
+Digital Forensics,What is the primary purpose of Mobile Forensics?,Over-the-air patching,Authenticates message origin,Analyzing smartphones/tablets,Investigating file slack,Analyzing smartphones/tablets,medium
+Digital Forensics,What is the primary purpose of IoT Forensics?,Temporary elevated rights,Investigating smart device data,Minimal permission principle,Impersonating authority,Investigating smart device data,medium
+Digital Forensics,What is the primary purpose of Malware Forensics?,Dissecting malware code,Translates private IPs to public IPs,Investigating cloud artifacts,Spreads via document macros,Dissecting malware code,medium
+Digital Forensics,What is the primary purpose of Timeline Reconstruction?,Segregation of Duties,Security Assertion Markup Lang,Building system timelines,Bluetooth Low-Energy safety,Building system timelines,medium
+Digital Forensics,What is the primary purpose of Drive Encryption Analysis?,Transport Layer Security,Cracking encrypted drives,Exploitation framework,Secure shell for remote login,Cracking encrypted drives,medium
+Digital Forensics,What is the primary purpose of Deleted File Recovery?,Digitally signing firmware,Testing for DB injection,Restoring erased data,Random input vulnerability test,Restoring erased data,medium
+Digital Forensics,What is the primary purpose of Slack Space Analysis?,Inject code via heap,Investigating file slack,Securing Zigbee traffic,Access Control List,Investigating file slack,medium
+Digital Forensics,What is the primary purpose of File Signature Analysis?,Secure Hash Algorithm 256-bit,Matching file headers,Secure file copy over SSH,Platform as a Service,Matching file headers,medium
+Digital Forensics,What is the primary purpose of RAM Dumping?,Predictable random numbers,Capturing memory image,Issues digital certificates,Weak out-of-box passwords,Capturing memory image,medium
+Digital Forensics,What is the primary purpose of Registry Hives?,Exploitation framework,Hex-level registry files,Asymmetric encryption algorithm,Following authorized users,Hex-level registry files,medium
+Social Engineering,What is the primary purpose of Phishing?,Email-based data theft,Encrypts fixed–size data blocks,Capturing network traffic,Exploiting mental shortcuts,Email-based data theft,medium
+Social Engineering,What is the primary purpose of Pretexting?,Inventing fake scenarios,Gives attacker remote control,Exceeds integer limits,Investigating cloud artifacts,Inventing fake scenarios,medium
+Social Engineering,What is the primary purpose of Baiting?,Reviewing system logs,Gaining higher rights,Resolves domain names to IPs,Offering false incentives,Offering false incentives,medium
+Social Engineering,What is the primary purpose of Tailgating?,Injects script into web pages,Following authorized users,Infected online ads,Rivest–Shamir–Adleman algorithm,Following authorized users,medium
+Social Engineering,What is the primary purpose of Quid Pro Quo?,Triggers malicious action on condition,Offering service for info,Validating firmware integrity,Patching device software,Offering service for info,medium
+Social Engineering,What is the primary purpose of Spear Phishing?,Assigns dynamic IP addresses,Targeted phishing attack,Urgent deadlines,Impersonating authority,Targeted phishing attack,medium
+Social Engineering,What is the primary purpose of Vishing?,Voice-based phishing,Division of security duties,Exceeds integer limits,Securing Zigbee traffic,Voice-based phishing,medium
+Social Engineering,What is the primary purpose of Smishing?,Giving to get,Unbreakable when used correctly,Manipulating people,SMS-based phishing,SMS-based phishing,medium
+Social Engineering,What is the primary purpose of Impersonation?,Inventing fake scenarios,Impersonating authority,Posing as someone else,Injects script into web pages,Posing as someone else,medium
+Social Engineering,What is the primary purpose of Dumpster Diving?,Location-based control,Auth token for sessions,Matching file headers,Searching trash for data,Searching trash for data,medium
+Social Engineering,What is the primary purpose of Shoulder Surfing?,Using relationships,Observing keystrokes,Infected online ads,Segregation of Duties,Observing keystrokes,medium
+Social Engineering,What is the primary purpose of Scareware?,Urgent deadlines,Top 10 IoT vulnerabilities,Weak out-of-box passwords,Fake threat pop-ups,Fake threat pop-ups,medium
+Social Engineering,What is the primary purpose of Watering Hole?,Compromising frequented sites,Permanently deletes data,Cracking encrypted drives,Testing for DB injection,Compromising frequented sites,medium
+Social Engineering,What is the primary purpose of Deepfake?,Infects the boot sector,Identifying abnormal behavior,Synthetic media deception,Translates private IPs to public IPs,Synthetic media deception,medium
+Social Engineering,What is the primary purpose of Trust Exploitation?,Uncontrolled printf formats,Simulated phishing attack,Negotiates encryption parameters,Using relationships,Using relationships,medium
+Social Engineering,What is the primary purpose of Reciprocity Principle?,Analyzing binaries,Locking server certs,Unvalidated redirects,Giving to get,Giving to get,medium
+Social Engineering,What is the primary purpose of Authority Principle?,Rules for passwords,Translates private IPs to public IPs,Resides in memory only,Impersonating authority,Impersonating authority,medium
+Social Engineering,What is the primary purpose of Scarcity Principle?,Urgent deadlines,Cloud network segment,Dividing network into zones,Cross-origin missetup,Urgent deadlines,medium
+Social Engineering,What is the primary purpose of Consensus Principle?,Authenticates message origin,“Everyone’s doing it”),Digitally signing firmware,Access Control List for filtering,“Everyone’s doing it”),medium
+Social Engineering,What is the primary purpose of Liking Principle?,Secure Hash Algorithm 256-bit,Collecting data from running systems,Friendly approach,Evaluating security policies,Friendly approach,medium
+Social Engineering,What is the primary purpose of Cognitive Bias?,Auto-logout timer,Exploiting mental shortcuts,Resolves domain names to IPs,Privileged Access Management,Exploiting mental shortcuts,medium
+Social Engineering,What is the primary purpose of Inoculation Theory?,Resolves domain names to IPs,Single Sign-On,"Never trust, always verify",Pre-warning defenses,Pre-warning defenses,medium
+Social Engineering,What is the primary purpose of Emotional Manipulation?,Segregation of Duties,Triggering feelings,Displays unwanted advertisements,Untrusted object replay,Triggering feelings,medium
+Social Engineering,What is the primary purpose of Social Media Profiling?,Assessing Wi-Fi security,Adaptive access decisions,Mining public profiles,Pre-warning defenses,Mining public profiles,medium
+Social Engineering,What is the primary purpose of Tailored Pretext?,Packet capture and analysis tool,Documenting findings,Highly customized scenario,Exploiting found vulnerabilities,Highly customized scenario,medium
+Cloud Security,What is the primary purpose of IaaS?,Negotiates encryption parameters,Infrastructure as a Service,Injects script into web pages,Same key to encrypt/decrypt,Infrastructure as a Service,medium
+Cloud Security,What is the primary purpose of PaaS?,Inventing fake scenarios,Injecting SQL commands,Thwart brute-force attempts,Platform as a Service,Platform as a Service,medium
+Cloud Security,What is the primary purpose of SaaS?,Software as a Service,Asymmetric encryption algorithm,Secure Hash Algorithm 256-bit,Untrusted object replay,Software as a Service,medium
+Cloud Security,What does CASB stand for?,Auth token for sessions,Hex-level registry files,Cloud Access Security Broker,Isolating IoT networks,Cloud Access Security Broker,medium
+Cloud Security,What does SSO stand for?,Discretionary Access Control,Secure shell for remote login,Standalone self-replicating malware,Single Sign-On,Single Sign-On,medium
+Cloud Security,What does IAM stand for?,Security Assertion Markup Lang,Creating bit-for-bit copies,Authorization framework,Identity and Access Management,Identity and Access Management,medium
+Cloud Security,What is the primary purpose of Encryption at Rest?,Protecting stored data,Documenting findings,Protecting edge devices,Unchanged credentials,Protecting stored data,medium
+Cloud Security,What is the primary purpose of Encryption in Transit?,Records keystrokes,Mandatory Access Control,Protecting data in motion,Bluetooth Low-Energy safety,Protecting data in motion,medium
+Cloud Security,What is the primary purpose of API Security?,Securing cloud APIs,Gathers user data without consent,Protecting data in motion,Encrypts data bit-by-bit,Securing cloud APIs,medium
+Cloud Security,What is the primary purpose of Container Security?,Hex-level registry files,Analyzing smartphones/tablets,Protecting container workloads,Secure Hash Algorithm 256-bit,Protecting container workloads,medium
+Cloud Security,What is the primary purpose of Microservices?,Investigating file slack,Recovering files from fragments,"Small, modular services",Protecting stored data,"Small, modular services",medium
+Cloud Security,What is the primary purpose of Shared Responsibility?,Tracing email origins,Compromising frequented sites,Division of security duties,X.509 certificate login,Division of security duties,medium
+Cloud Security,What does SOC stand for?,Estimating impact/likelihood,Security Operations Center,Security Assertion Markup Lang,Negotiates encryption parameters,Security Operations Center,medium
+Cloud Security,What is the primary purpose of Compliance?,Infects device firmware,Windows registry investigation,Meeting security standards,Reviewing system logs,Meeting security standards,medium
+Cloud Security,What does DLP stand for?,Data Loss Prevention,Packet capture and analysis tool,Encrypts fixed–size data blocks,Server-Side Request Forgery,Data Loss Prevention,medium
+Cloud Security,What does MFA stand for?,Bypasses normal authentication,Multi-Factor Authentication,Unvalidated redirects,Pulling useful data snippets,Multi-Factor Authentication,medium
+Cloud Security,What does KMS stand for?,Key Management Service,Hides malicious activities,Access Control List for filtering,Cross-Site Scripting,Key Management Service,medium
+Cloud Security,What is the primary purpose of Tenant Isolation?,Mining public profiles,Encrypts files for ransom,Separating customer data,Pre-warning defenses,Separating customer data,medium
+Cloud Security,What is the primary purpose of Virtual Network?,Impersonating authority,Injecting SQL commands,Highly customized scenario,Cloud network segment,Cloud network segment,medium
+Cloud Security,What is the primary purpose of Security Group?,Evaluating security policies,Virtual firewall rules,Testing for script injection,Negotiates encryption parameters,Virtual firewall rules,medium
+Cloud Security,What does WAF stand for?,Web Application Firewall,Testing for DB injection,Self-replicating code attaching to programs,Key Management Service,Web Application Firewall,medium
+Cloud Security,What is the primary purpose of Cloud Audit?,Unreleased memory,Reviewing cloud logs,Separating customer data,Displays unwanted advertisements,Reviewing cloud logs,medium
+Cloud Security,What is the primary purpose of Credential Management?,Gathering target info,Urgent deadlines,Protecting data in motion,Handling cloud credentials,Handling cloud credentials,medium
+Cloud Security,What is the primary purpose of Secret Rotation?,Extracting user and resource info,Infrastructure as a Service,Regular key turnover,Displays unwanted advertisements,Regular key turnover,medium
+Cloud Security,What is the primary purpose of Zero Trust?,Security Assertion Markup Lang,"Never trust, always verify",Spreads via document macros,Identity and Access Management,"Never trust, always verify",medium
+IoT Security,What is the primary purpose of Device Authentication?,Rules for passwords,Verifying device identity,Hides malicious activities,Investigating smart device data,Verifying device identity,medium
+IoT Security,What is the primary purpose of Firmware Updates?,Role-Based Access Control,Access Control List,Cloud network segment,Patching device software,Patching device software,medium
+IoT Security,What is the primary purpose of Secure Boot?,Building system timelines,Authenticates message origin,Validating firmware integrity,Hides malicious activities,Validating firmware integrity,medium
+IoT Security,What is the primary purpose of Network Segmentation?,Isolating IoT networks,Timing-based flaw,Multi-Factor Authentication,Bluetooth Low-Energy safety,Isolating IoT networks,medium
+IoT Security,What is the primary purpose of Edge Security?,Protecting edge devices,Assigns dynamic IP addresses,Windows policy management,Records keystrokes,Protecting edge devices,medium
+IoT Security,What is the primary purpose of Default Credentials?,Weak out-of-box passwords,Observing keystrokes,Offering service for info,Single Sign-On,Weak out-of-box passwords,medium
+IoT Security,What is the primary purpose of MQTT Security?,Rules for passwords,Auth token for sessions,Securing IoT messaging protocol,Verifying device identity,Securing IoT messaging protocol,medium
+IoT Security,What is the primary purpose of CoAP Security?,Unbreakable when used correctly,Certificate Revocation List,Constrained Application Protocol,"Never trust, always verify",Constrained Application Protocol,medium
+IoT Security,What is the primary purpose of Zigbee Encryption?,Securing Zigbee traffic,Probing targets for open ports,Separating customer data,Inventing fake scenarios,Securing Zigbee traffic,medium
+IoT Security,What is the primary purpose of Bluetooth LE Sec?,Bluetooth Low-Energy safety,Analyzing smartphones/tablets,Same key to encrypt/decrypt,Infrastructure as a Service,Bluetooth Low-Energy safety,medium
+IoT Security,What is the primary purpose of TLS on IoT?,Encrypting IoT comms,Patching device software,Predictable random numbers,Identifying abnormal behavior,Encrypting IoT comms,medium
+IoT Security,What does OWASP IoT 10 stand for?,Infrastructure as a Service,Inspecting file metadata,Top 10 IoT vulnerabilities,Synthetic media deception,Top 10 IoT vulnerabilities,medium
+IoT Security,What is the primary purpose of Physical Tampering?,Filters network traffic based on rules,Certificate Revocation List,Protecting device access,Fake threat pop-ups,Protecting device access,medium
+IoT Security,What is the primary purpose of Side-Channel Attack?,Extracting keys via leaks,Infrastructure as a Service,Changes code to evade detection,Dividing network into zones,Extracting keys via leaks,medium
+IoT Security,What is the primary purpose of Supply Chain Sec?,Tracing email origins,Multi-Factor Authentication,Packet capture and analysis tool,Securing components,Securing components,medium
+IoT Security,What is the primary purpose of Sensor Spoofing?,Auth token for sessions,Authorization framework,Reviewing system logs,Faking sensor data,Faking sensor data,medium
+IoT Security,What is the primary purpose of Data Encryption?,Conditional malicious code,Division of security duties,Network of compromised machines,Encrypting IoT data,Encrypting IoT data,medium
+IoT Security,What is the primary purpose of Anomaly Detection?,Extracting user and resource info,"Small, modular services",Capturing network traffic,Identifying abnormal behavior,Identifying abnormal behavior,medium
+IoT Security,What is the primary purpose of RTOS Security?,Same key to encrypt/decrypt,Protecting real-time OS,Matching file headers,Offering service for info,Protecting real-time OS,medium
+IoT Security,What is the primary purpose of Memory Protection?,Separating memory spaces,Synthetic media deception,Following authorized users,Time-based access,Separating memory spaces,medium
+IoT Security,What is the primary purpose of Firmware Signing?,Resolves domain names to IPs,Analyzing RAM contents,Tampering log entries,Digitally signing firmware,Digitally signing firmware,medium
+IoT Security,What is the primary purpose of Secure Provisioning?,Highly customized scenario,Secure file copy over SSH,Maps data to fixed length digest,Safe device onboarding,Safe device onboarding,medium
+IoT Security,What is the primary purpose of OTA Updates?,Pulling useful data snippets,Over-the-air patching,Certificate Revocation List,Fingerprint or retina scan,Over-the-air patching,medium
+IoT Security,What is the primary purpose of Certificate Pinning?,Locking server certs,Verifying device identity,Handling cloud credentials,Documenting evidence handling,Locking server certs,medium
+IoT Security,What is the primary purpose of Remote Attestation?,Tampering log entries,Simple Network Management Protocol,Inject code via heap,Verifying device state,Verifying device state,medium
+Software Vulnerabilities,What is the primary purpose of Buffer Overflow?,Verbose debugging left on,Exceeds memory buffer,Timing-based flaw,Faking sensor data,Exceeds memory buffer,medium
+Software Vulnerabilities,What is the primary purpose of SQL Injection?,Transport Layer Security,Inject code via heap,Injecting SQL commands,Encrypting IoT data,Injecting SQL commands,medium
+Software Vulnerabilities,What does XSS stand for?,Injecting SQL commands,Cross-Site Scripting,Locking server certs,Investigating file slack,Cross-Site Scripting,medium
+Software Vulnerabilities,What does CSRF stand for?,Cross-Site Request Forgery,Tricking users to reveal data,Alters code on each infection,Windows policy management,Cross-Site Request Forgery,medium
+Software Vulnerabilities,What is the primary purpose of Directory Traversal?,Encrypts files for ransom,Translates private IPs to public IPs,Accessing restricted files,Data Loss Prevention,Accessing restricted files,medium
+Software Vulnerabilities,What is the primary purpose of Deserialization?,Resolves domain names to IPs,Inventing fake scenarios,Verifying data integrity,Untrusted object replay,Untrusted object replay,medium
+Software Vulnerabilities,What is the primary purpose of Command Injection?,Port scanning tool,OS command execution,Resolves domain names to IPs,Unsafe library calls,OS command execution,medium
+Software Vulnerabilities,What is the primary purpose of Race Condition?,Timing-based flaw,“Everyone’s doing it”),Open-source intelligence gathering,Records keystrokes,Timing-based flaw,medium
+Software Vulnerabilities,What is the primary purpose of Integer Overflow?,Encrypting IoT data,Fake threat pop-ups,Authenticates message origin,Exceeds integer limits,Exceeds integer limits,medium
+Software Vulnerabilities,What is the primary purpose of Path Traversal?,Following authorized users,File path manipulation,Safe device onboarding,Encrypts data bit-by-bit,File path manipulation,medium
+Software Vulnerabilities,What is the primary purpose of Header Injection?,Protecting stored data,Email-based data theft,Securing components,HTTP header tampering,HTTP header tampering,medium
+Software Vulnerabilities,What is the primary purpose of Open Redirect?,Cross-Site Request Forgery,Investigating cloud artifacts,Dissecting malware code,Unvalidated redirects,Unvalidated redirects,medium
+Software Vulnerabilities,What is the primary purpose of Insecure Function?,Identity and Access Management,Unsafe library calls,Giving to get,Breaking or analyzing ciphers,Unsafe library calls,medium
+Software Vulnerabilities,What is the primary purpose of Memory Leak?,Simple Network Management Protocol,Triggers malicious action on condition,Synthetic media deception,Unreleased memory,Unreleased memory,medium
+Software Vulnerabilities,What is the primary purpose of Format String?,Address Resolution Protocol,Uncontrolled printf formats,Permanently deletes data,Conditional malicious code,Uncontrolled printf formats,medium
+Software Vulnerabilities,What is the primary purpose of Heap Spray?,Securing IoT messaging protocol,Posing as someone else,Inject code via heap,Cloud network segment,Inject code via heap,medium
+Software Vulnerabilities,What is the primary purpose of Script Inclusion?,Mining public profiles,Verifying device state,Loading remote scripts,Friendly approach,Loading remote scripts,medium
+Software Vulnerabilities,What does SSRF stand for?,Searching trash for data,Windows policy management,Server-Side Request Forgery,Unreleased memory,Server-Side Request Forgery,medium
+Software Vulnerabilities,What is the primary purpose of Clickjacking?,Safe device onboarding,Regular key turnover,Injecting SQL commands,UI redressing attack,UI redressing attack,medium
+Software Vulnerabilities,What is the primary purpose of CORS Misconfig?,Highly customized scenario,Triggering feelings,Untrusted object replay,Cross-origin missetup,Cross-origin missetup,medium
+Software Vulnerabilities,What is the primary purpose of Default Password?,Access Control List for filtering,Pulling useful data snippets,Unchanged credentials,Web Application Firewall,Unchanged credentials,medium
+Software Vulnerabilities,What is the primary purpose of Debug Mode?,Rules for passwords,Multi-Factor Authentication,Over-the-air patching,Verbose debugging left on,Verbose debugging left on,medium
+Software Vulnerabilities,What is the primary purpose of Log Injection?,Server-Side Request Forgery,Reducing identified risks,Exploitation framework,Tampering log entries,Tampering log entries,medium
+Software Vulnerabilities,What is the primary purpose of Weak RNG?,Platform as a Service,Encrypts data bit-by-bit,Predictable random numbers,Reconstructing event order,Predictable random numbers,medium
+Software Vulnerabilities,What is the primary purpose of Env Variable Leak?,Over-the-air patching,Assigns dynamic IP addresses,Stolen server config,Offering false incentives,Stolen server config,medium
+Access Control,What does RBAC stand for?,Faking sensor data,Securing Zigbee traffic,Role-Based Access Control,Authorization framework,Role-Based Access Control,medium
+Access Control,What does ABAC stand for?,Weak out-of-box passwords,Attribute-Based Access Control,Displays unwanted advertisements,Authenticates message origin,Attribute-Based Access Control,medium
+Access Control,What does MAC stand for?,Mandatory Access Control,Timing-based flaw,Constrained Application Protocol,Urgent deadlines,Mandatory Access Control,medium
+Access Control,What does DAC stand for?,Alters code on each infection,Discretionary Access Control,Testing memory boundaries,Infects device firmware,Discretionary Access Control,medium
+Access Control,What is the primary purpose of Least Privilege?,Digitally signing firmware,Minimal permission principle,Secret key kept by owner,Observing keystrokes,Minimal permission principle,medium
+Access Control,What is the primary purpose of SoD?,Software as a Service,Segregation of Duties,Encrypting IoT data,Encrypts files for ransom,Segregation of Duties,medium
+Access Control,What does MFA stand for?,Time-based access,Assessing Wi-Fi security,Multi-Factor Authentication,Inventing fake scenarios,Multi-Factor Authentication,medium
+Access Control,What does SSO stand for?,Single Sign-On,Over-the-air patching,Unvalidated redirects,Verifying device state,Single Sign-On,medium
+Access Control,What is the primary purpose of OAuth?,Transport Layer Security,Auth token for sessions,Authorization framework,Securing cloud APIs,Authorization framework,medium
+Access Control,What does LDAP stand for?,Verifying device state,Directory access protocol,Reviewing system logs,Maps data to fixed length digest,Directory access protocol,medium
+Access Control,What does SAML stand for?,Security Assertion Markup Lang,Restoring erased data,Resolves domain names to IPs,Offering service for info,Security Assertion Markup Lang,medium
+Access Control,What is the primary purpose of Kerberos?,Prevents disk modifications,Ticket-based authentication,Hex-level registry files,Conditional malicious code,Ticket-based authentication,medium
+Access Control,What does ACL stand for?,Access Control List,Exploiting mental shortcuts,Open-source intelligence gathering,Installs other malware,Access Control List,medium
+Access Control,What is the primary purpose of Group Policy?,Same key to encrypt/decrypt,Public Key Infrastructure,Windows policy management,Exploitation framework,Windows policy management,medium
+Access Control,What is the primary purpose of Access Token?,Using relationships,Encrypts data bit-by-bit,Auth token for sessions,Documenting findings,Auth token for sessions,medium
+Access Control,What is the primary purpose of Session Timeout?,Auto-logout timer,Unvalidated redirects,Ticket-based authentication,Mapping Wi-Fi networks,Auto-logout timer,medium
+Access Control,What is the primary purpose of Time-of-Day Restriction?,Time-based access,Changes code to evade detection,Web Application Firewall,Standalone self-replicating malware,Time-based access,medium
+Access Control,What is the primary purpose of Geofencing?,Safe device onboarding,Packet capture and analysis tool,Location-based control,Directory access protocol,Location-based control,medium
+Access Control,What is the primary purpose of Context-Based?,Adaptive access decisions,Probing targets for open ports,Unreleased memory,Over-the-air patching,Adaptive access decisions,medium
+Access Control,What does PAM stand for?,Privileged Access Management,Auth token for sessions,Identifying abnormal behavior,Restoring erased data,Privileged Access Management,medium
+Access Control,What is the primary purpose of Password Policy?,Collecting data from running systems,Separating memory spaces,Mandatory Access Control,Rules for passwords,Rules for passwords,medium
+Access Control,What is the primary purpose of Account Lockout?,Reviewing system logs,Thwart brute-force attempts,Intrusion Detection System,Pretty Good Privacy,Thwart brute-force attempts,medium
+Access Control,What is the primary purpose of Biometrics?,Virtual firewall rules,Random input vulnerability test,Simulated phishing attack,Fingerprint or retina scan,Fingerprint or retina scan,medium
+Access Control,What is the primary purpose of Certificate Auth?,X.509 certificate login,Rivest–Shamir–Adleman algorithm,Negotiates encryption parameters,Open-source intelligence gathering,X.509 certificate login,medium
+Access Control,What is the primary purpose of Delegated Access?,Protecting edge devices,Spreads via document macros,Temporary elevated rights,Triggering feelings,Temporary elevated rights,medium

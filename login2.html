@@ -1,0 +1,260 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/Register</title>
+  <link href="img/favicon.ico" rel="shortcut icon"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="login.css"/>
+
+  <style>
+    .error {
+      color: rgb(247, 247, 250);
+      font-size: 13px;
+      margin-top: 3px;
+      display: none;
+    }
+    .input.error-border {
+      border: 1px solid rgb(245, 245, 248);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-html">
+      <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+      <label for="tab-1" class="tab">Sign In</label>
+      <input id="tab-2" type="radio" name="tab" class="sign-up">
+      <label for="tab-2" class="tab">Sign Up</label>
+
+      <div class="login-form">
+        <!-- Sign In -->
+        <div class="sign-in-htm">
+          <form id="signin-form" novalidate>
+            <div class="group">
+              <label for="signin-username" class="label">Username</label>
+              <input id="signin-username" name="username" type="text" class="input" required>
+              <span class="error">Username is required</span>
+            </div>
+            <div class="group">
+              <label for="signin-password" class="label">Password</label>
+              <input id="signin-password" name="password" type="password" class="input" required>
+              <span class="error">Password is required</span>
+            </div>
+            <div class="group">
+              <input id="check" type="checkbox" class="check" checked>
+              <label for="check"><span class="icon"></span> Keep me Signed in</label>
+            </div>
+            <div class="group">
+              <input type="submit" class="button" value="Sign In">
+            </div>
+          </form>
+          <div class="hr"></div>
+          <div class="foot-lnk">
+            <a href="#forgot">Forgot Password?</a>
+          </div>
+        </div>
+
+        <!-- Sign Up -->
+        <div class="sign-up-htm">
+          <form id="signup-form" novalidate>
+            <div class="group">
+              <label for="signup-username" class="label">Username</label>
+              <input id="signup-username" name="username" type="text" class="input" required>
+              <span class="error">Username is required</span>
+            </div>
+            <div class="group">
+              <label for="signup-password" class="label">Password</label>
+              <input id="signup-password" name="password" type="password" class="input" required>
+              <span class="error">Password must be at least 6 characters</span>
+            </div>
+            <div class="group">
+              <label for="signup-repeat-password" class="label">Repeat Password</label>
+              <input id="signup-repeat-password" type="password" class="input" required>
+              <span class="error">Passwords do not match</span>
+            </div>
+            <div class="group">
+              <label for="signup-email" class="label">Email Address</label>
+              <input id="signup-email" name="email" type="email" class="input" required>
+              <span class="error">Enter a valid email</span>
+            </div>
+            <div class="group">
+              <input type="submit" class="button" value="Sign Up">
+            </div>
+          </form>
+          <div class="hr"></div>
+          <div class="foot-lnk">
+            <label for="tab-1">Already Member?</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function validateField(input, errorSpan, validatorFn) {
+      if (validatorFn(input.value)) {
+        input.classList.remove("error-border");
+        errorSpan.style.display = "none";
+        return true;
+      } else {
+        input.classList.add("error-border");
+        errorSpan.style.display = "block";
+        return false;
+      }
+    }
+
+    function isNotEmpty(v) { return v.trim() !== ""; }
+    function isPasswordStrong(v) { return v.length >= 6; }
+    function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+    // --- Sign In ---
+    const signinUsername = document.getElementById("signin-username");
+    const signinPassword = document.getElementById("signin-password");
+
+    signinUsername.addEventListener("blur", () => {
+      validateField(signinUsername, signinUsername.nextElementSibling, isNotEmpty);
+    });
+    signinPassword.addEventListener("blur", () => {
+      validateField(signinPassword, signinPassword.nextElementSibling, isNotEmpty);
+    });
+
+    document.getElementById("signin-form").addEventListener("submit", (e) => {
+      if (!isNotEmpty(signinUsername.value) || !isNotEmpty(signinPassword.value)) {
+        e.preventDefault();
+        signinUsername.dispatchEvent(new Event("blur"));
+        signinPassword.dispatchEvent(new Event("blur"));
+      }
+    });
+
+    // --- Sign Up ---
+    const signupUsername = document.getElementById("signup-username");
+    const signupPassword = document.getElementById("signup-password");
+    const signupRepeatPassword = document.getElementById("signup-repeat-password");
+    const signupEmail = document.getElementById("signup-email");
+
+    signupUsername.addEventListener("blur", () => {
+      validateField(signupUsername, signupUsername.nextElementSibling, isNotEmpty);
+    });
+    signupPassword.addEventListener("blur", () => {
+      validateField(signupPassword, signupPassword.nextElementSibling, isPasswordStrong);
+    });
+    signupRepeatPassword.addEventListener("blur", () => {
+      validateField(signupRepeatPassword, signupRepeatPassword.nextElementSibling,
+        (val) => val === signupPassword.value && val !== ""
+      );
+    });
+    signupEmail.addEventListener("blur", () => {
+      validateField(signupEmail, signupEmail.nextElementSibling, isValidEmail);
+    });
+
+    document.getElementById("signup-form").addEventListener("submit", (e) => {
+      if (
+        !isNotEmpty(signupUsername.value) ||
+        !isPasswordStrong(signupPassword.value) ||
+        signupRepeatPassword.value !== signupPassword.value ||
+        !isValidEmail(signupEmail.value)
+      ) {
+        e.preventDefault();
+        signupUsername.dispatchEvent(new Event("blur"));
+        signupPassword.dispatchEvent(new Event("blur"));
+        signupRepeatPassword.dispatchEvent(new Event("blur"));
+        signupEmail.dispatchEvent(new Event("blur"));
+      }
+    });
+  </script>
+  <script>
+// Handle Sign Up
+document.getElementById("signup-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // run the same client-side validators used earlier
+  signupUsername.dispatchEvent(new Event('blur'));
+  signupPassword.dispatchEvent(new Event('blur'));
+  signupRepeatPassword.dispatchEvent(new Event('blur'));
+  signupEmail.dispatchEvent(new Event('blur'));
+
+  // quick validation check before sending
+  if (
+    !isNotEmpty(signupUsername.value) ||
+    !isPasswordStrong(signupPassword.value) ||
+    signupPassword.value !== signupRepeatPassword.value ||
+    !isValidEmail(signupEmail.value)
+  ) {
+    return; // validation messages are already shown
+  }
+
+  const username = signupUsername.value.trim();
+  const password = signupPassword.value;
+  const email = signupEmail.value.trim();
+
+  try {
+    const res = await fetch("http://127.0.0.1:5000/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password, email }),
+    });
+
+    const data = await res.json().catch(() => ({ message: 'No JSON response' }));
+
+    if (res.ok) {
+      alert(data.message || 'Signed up successfully');
+      // store minimal user object and switch to sign-in (or go straight to games)
+      try {
+        const obj = { username };
+        sessionStorage.setItem('hackademic_user', JSON.stringify(obj));
+      } catch (e) { /* ignore storage errors */ }
+      // redirect to games landing
+      window.location.href = 'games.html';
+    } else {
+      alert(data.message || 'Error signing up');
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error signing up");
+  }
+});
+
+// Handle Sign In
+document.getElementById("signin-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // run validation
+  signinUsername.dispatchEvent(new Event('blur'));
+  signinPassword.dispatchEvent(new Event('blur'));
+
+  if (!isNotEmpty(signinUsername.value) || !isNotEmpty(signinPassword.value)) {
+    return;
+  }
+
+  const username = signinUsername.value.trim();
+  const password = signinPassword.value;
+
+  try {
+    const res = await fetch("http://127.0.0.1:5000/api/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await res.json().catch(() => ({ message: 'No JSON response' }));
+
+    if (res.ok) {
+      alert(data.message || 'Signed in successfully');
+      try { sessionStorage.setItem('hackademic_user', JSON.stringify({ username })); } catch(e){}
+      window.location.href = "games.html";
+      // redirect or perform post-login actions here
+    } else {
+      alert(data.message || 'Invalid credentials');
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error signing in");
+  }
+});
+</script>
+
+</body>
+</html>
